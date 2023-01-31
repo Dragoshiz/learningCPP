@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimbrea <dimbrea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 13:39:43 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/01/31 09:11:59 by dimbrea          ###   ########.fr       */
+/*   Created: 2023/01/31 09:02:53 by dimbrea           #+#    #+#             */
+/*   Updated: 2023/01/31 11:33:59 by dimbrea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "PhoneBook.hpp"
 
-int	main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-	if (argc >= 2)
+	PhoneBook pBook;
+	int	contact_numb = 0;
+	if (strcmp(argv[1], "ADD") == 0 && contact_numb < 8)
 	{
-		for (int i = 1; argv[i]; i++)
-		{
-			for (int j = 0; argv[i][j]; j++)
-				std::cout << (char)toupper(argv[i][j]);
-			if (argv[i + 1])
-				std::cout << " ";
-		}
-		std::cout << std::endl;
+		pBook::conta
+		contact_numb ++;
 	}
-	else
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
+	else if (strcmp(argv[1], "SEARCH") == 0)
+		std::cout << "search" << std::endl;
+	else if (strcmp(argv[1], "EXIT") == 0)
+		std::cout << "exit" << std::endl;
 	return (0);
 }
