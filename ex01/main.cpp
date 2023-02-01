@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:02:53 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/02/01 13:37:29 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/01 19:01:43 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,11 @@ int main(int argc, char *argv[])
 			}
 			else if (input.compare("EXIT") == 0)
 				break ;
-			
+			if (std::cin.eof())
+				break ;
 		}
 	}
-	std::cout << "No arguments needed" << std::endl;
+	else
+		std::cout << "No arguments needed" << std::endl;
 	return (0);
 }

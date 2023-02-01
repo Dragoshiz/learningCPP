@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:04:46 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/02/01 11:26:52 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/01 19:17:03 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 class Contact{
 	private:
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string darkest_secret;
-		std::string phone_number;
+		std::string _first_name;
+		std::string _last_name;
+		std::string _nickname;
+		std::string _darkest_secret;
+		std::string _phone_number;
 	public:
 		Contact(void);
 		~Contact(void);
@@ -37,5 +37,5 @@ class Contact{
 		std::string getPhoneNumber(void);
 		void		setPhoneNumber(std::string);
 };
-	
+
 #endif

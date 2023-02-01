@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:52:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2023/02/01 16:29:37 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/01 19:22:13 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ PhoneBook::~PhoneBook(){
 };
 
 void PhoneBook::addContact2arr(int index){
-	if (num_contacts < 8)
+	if (_num_contacts < 8)
 	{
 		Contact newContact;
 		newContact.AddContact();
-		contacts[index] = newContact;
+		_contacts[index] = newContact;
 	}
 };
 
@@ -45,25 +45,42 @@ void	PhoneBook::printContacts(std::string str)
 
 	}
 	std::cout << tmp << "|";
-}
+};
 
 
 void PhoneBook::showContacts(int num_contacts){
 
 	for(int i=0; i < num_contacts; i++)
 	{
+		std::cout << "|";
 		for (int i = 0; i < 10; i++)
 		{
 			std::cout << " ";
 		}
 		std::cout << i << "|";
-		printContacts(contacts[i].getFirstname());
-		printContacts(contacts[i].getLastname());
-		printContacts(contacts[i].getNickname());
+		printContacts(_contacts[i].getFirstname());
+		printContacts(_contacts[i].getLastname());
+		printContacts(_contacts[i].getNickname());
 		std::cout << std::endl;
 	}
-	std::cout << "Contact index for details: ";
-	int index;
-	std::cin >> index;
-	
+	if (num_contacts != 0)
+	{
+		std::cout << "Input contact index for details: ";
+		int index;
+		std::cin >> index;
+		if (index < 0 || index >= num_contacts)
+		{
+			std::cout << "Index must be in the range 0 - "<< num_contacts - 1 << std::endl;
+			return ;
+		}
+		std::cout << index;
+		printContacts(_contacts[index].getFirstname());
+		printContacts(_contacts[index].getLastname());
+		printContacts(_contacts[index].getNickname());
+		printContacts(_contacts[index].getDarkestSecret());
+		printContacts(_contacts[index].getPhoneNumber());
+		std::cout << std::endl;
+	}
+	else
+		std::cout << "No contacts yet" << std::endl;
 };
