@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 09:01:49 by dimbrea           #+#    #+#              #
-#    Updated: 2023/01/31 12:57:16 by ubuntu           ###   ########.fr        #
+#    Updated: 2023/02/01 08:05:50 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ RM = rm -rf
 
 SRCS = \
 main.cpp\
+PhoneBook.class.cpp\
+Contact.class.cpp\
 
 OBJ = $(SRCS:.cpp=.o)
 
