@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimbrea <dimbrea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:04:22 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/01/31 11:33:27 by dimbrea          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:42:19 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,25 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstring>
 #include "Contact.hpp"
 
+
 class PhoneBook{
+private:
+	int numContacts = 0;
 public:
-	std::vector<Contact> contacts;
-	
-	
+	Contact contacts[8];
+	char *str = new char;
+	// PhoneBook() : numContacts(){};
+	void addContact(){
+		std::string data;
+		if (numContacts < 8)
+		{
+			std::cout << "First name: ";
+			std::cin >> str;
+			contacts[numContacts++] = Contact();
+		}
+	}
 };
 #endif

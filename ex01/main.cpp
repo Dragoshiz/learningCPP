@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimbrea <dimbrea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:02:53 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/01/31 11:33:59 by dimbrea          ###   ########.fr       */
+/*   Updated: 2023/01/31 13:27:34 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int main(int argc, char *argv[])
 {
 	PhoneBook pBook;
-	int	contact_numb = 0;
-	if (strcmp(argv[1], "ADD") == 0 && contact_numb < 8)
+	if (strcmp(argv[1], "ADD") == 0)
 	{
-		pBook::conta
-		contact_numb ++;
+		pBook.addContact();
+
+		std::cout<< pBook.contacts[0].first_name << std::endl;
 	}
 	else if (strcmp(argv[1], "SEARCH") == 0)
 		std::cout << "search" << std::endl;
