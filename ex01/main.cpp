@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:02:53 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/02/01 11:33:46 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/01 13:37:29 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@ int main(int argc, char *argv[])
 			std::cin >> input;
 			if (input.compare("ADD") == 0)
 			{
-				if (new_contact.AddContact() == 1)
-					std::cout << "Field left empty!" << std::endl;
-					
-				
+				if (num_contacts < 8)
+					phonebook.addContact2arr(num_contacts++);
+				else
+					phonebook.addContact2arr(7);
 			}
 			else if (input.compare("SEARCH") == 0)
-				std::cout << "search" << std::endl;
+			{
+				phonebook.showContacts(num_contacts);
+			}
 			else if (input.compare("EXIT") == 0)
-				std::cout << "exit" << std::endl;
+				break ;
+			
 		}
 	}
 	std::cout << "No arguments needed" << std::endl;
