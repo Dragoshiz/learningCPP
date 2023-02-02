@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 09:02:53 by dimbrea           #+#    #+#             */
-/*   Updated: 2023/02/02 10:28:45 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:39:38 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int main(int argc, char *argv[])
 				{
 					phonebook.showContacts(num_contacts);
 					if(phonebook.searchContact(num_contacts) == 1)
-						continue;
+					{
+						std::cin.ignore();
+					}
 				}
 				else
 					std::cout << "No contacts yet" << std::endl;

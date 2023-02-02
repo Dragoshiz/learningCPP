@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:52:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2023/02/02 10:27:00 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/02 10:41:48 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,4 @@ int PhoneBook::searchContact(int num_contacts)
 	printContacts(_contacts[index].getPhoneNumber());
 	std::cout << std::endl;
 	return 0;
-}
+};
