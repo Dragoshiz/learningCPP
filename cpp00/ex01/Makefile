@@ -6,13 +6,13 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/31 09:01:49 by dimbrea           #+#    #+#              #
-#    Updated: 2023/02/02 10:21:03 by ubuntu           ###   ########.fr        #
+#    Updated: 2023/02/02 11:07:33 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = phonebook
 
-FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
+FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -g
 
 CC = c++
 
@@ -37,6 +37,6 @@ fclean :
 	$(RM) $(OBJ) $(NAME)
 
 debug:
-	$(CC) $(SRCS) -g -o $(NAME)
+	$(CC) $(SRCS) $(FLAGS) -o $(NAME)
 
 re: fclean all

@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 11:29:27 by ubuntu            #+#    #+#              #
-#    Updated: 2023/02/02 14:01:36 by ubuntu           ###   ########.fr        #
+#    Updated: 2023/02/03 10:51:42 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ clean :
 
 debug :
 	$(CC) $(FLAGS) $(SRCS) -g -o $(NAME)
+
 fclean :
 	$(RM) $(OBJ) $(NAME)
-
 
 re: fclean all

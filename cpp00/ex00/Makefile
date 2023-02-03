@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dimbrea <dimbrea@student.42.fr>            +#+  +:+       +#+         #
+#    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 13:39:50 by dimbrea           #+#    #+#              #
-#    Updated: 2023/01/30 14:53:45 by dimbrea          ###   ########.fr        #
+#    Updated: 2023/02/02 11:24:01 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,5 +32,6 @@ clean :
 
 fclean :
 	$(RM) $(OBJ) $(NAME)
+
 
 re: fclean all

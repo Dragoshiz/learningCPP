@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:52:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2023/02/02 10:41:48 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/02 14:41:52 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 PhoneBook::PhoneBook(){
 	// std::cout << "Phonebook constructor called" << std::endl;
-};
+}
 
 PhoneBook::~PhoneBook(){
 	// std::cout << "Phonebook destructor called" << std::endl;

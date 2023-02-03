@@ -6,14 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:31:08 by ubuntu            #+#    #+#             */
-/*   Updated: 2023/02/02 14:50:21 by ubuntu           ###   ########.fr       */
+/*   Updated: 2023/02/03 09:59:26 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-void Zombie::randomChump(std::string name){
-	Zombie rndm;
-	this->_name = name;
+void randomChump(std::string name){
+	Zombie rndm(name);
 	rndm.announce();
 }
