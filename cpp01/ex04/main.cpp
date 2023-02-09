@@ -17,7 +17,7 @@ std::string toReplace(std::string str, std::string s1, std::string s2)
 		}
 		replace += str.substr(pos, found - pos);
 		replace += s2;
-		pos = found + s1.length() + 1;
+		pos = found + s1.length();
 	}
 	return replace;
 }
@@ -45,7 +45,8 @@ int main(int argc, char *argv[])
 		while(std::getline(file, line))
 		{
 			replacedFile << toReplace(line, argv[2], argv[3]);
-			replacedFile << std::endl;
+			if (!file.eof())
+				replacedFile << std::endl;
 		}
 	}
 	else
