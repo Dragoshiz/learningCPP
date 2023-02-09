@@ -9,10 +9,10 @@ HumanA::HumanA(std::string name, Weapon &weapon):
 
 HumanA::~HumanA()
 {
-	std::cout << this->_name << "logged out" << std::endl;
+	std::cout << this->_name << " logged out" << std::endl;
 }
 
 void HumanA::attack(void)
 {
-	std::cout << this->_name << " attacks with their " << this->_weapon.getType() << std::endl;
+	std::cout << this->_name << " attacks with " << this->_weapon.getType() << std::endl;
 }

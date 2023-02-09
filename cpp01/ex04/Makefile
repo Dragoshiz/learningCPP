@@ -1,4 +1,4 @@
-NAME = violence
+NAME = replace
 
 FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
@@ -7,9 +7,6 @@ CC = c++
 RM = rm -rf
 
 SRCS = main.cpp\
-HumanA.cpp\
-HumanB.cpp\
-Weapon.cpp\
 
 OBJ = $(SRCS:.cpp=.o)
 
@@ -20,7 +17,6 @@ $(NAME) : $(OBJ)
 
 clean :
 	$(RM) $(OBJ)
-
 
 fclean :
 	$(RM) $(OBJ) $(NAME)
