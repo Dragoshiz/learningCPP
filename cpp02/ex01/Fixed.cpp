@@ -8,15 +8,16 @@ Fixed::Fixed(){
 Fixed::Fixed(const Fixed &other)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	Fixed::_fixedPoint = other.getRawBits();
+	*this = other;
 }
 
 Fixed::Fixed(const int _fixedP){
+	std::cout << "Int constructor called" << std::endl;
 	this->_fixedPoint = _fixedP << this->fractionBits;
 }
 
 Fixed::Fixed(const float _fixedP):
-	_fixedPoint(round(_fixedP * (1 << this->fractionBits)))
+	_fixedPoint(roundf(_fixedP * (1 << this->fractionBits)))
 {
 	std::cout << "Float constructor called" << std::endl;
 }
@@ -27,30 +28,30 @@ Fixed::~Fixed(){
 
 
 float Fixed::toFloat(void)const{
-	return this->_fixedPoint / (1 << this->fractionBits);
+	return (float)this->_fixedPoint / (1 << this->fractionBits);
 }
 
 int Fixed::toInt(void)const{
-	return round(this->_fixedPoint);
+	return roundf(this->_fixedPoint /(1 << this->fractionBits));
 }
 
-Fixed & Fixed::operator=(Fixed const &rhs)
-{
-	std::cout << "Operator overload called" << std::endl;
-	if (this != &rhs)
-	{
-		this->_fixedPoint = rhs.getRawBits();
-	}
-	return *this;
-}
 
 void Fixed::setRawBits(int const raw){
 	this->_fixedPoint = raw;
 }
 
 int Fixed::getRawBits(void)const{
-	std::cout << "getRawBits member function called" << std::endl;
 	return this->_fixedPoint;
+}
+
+Fixed & Fixed::operator=(Fixed const &rhs)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &rhs)
+	{
+		this->_fixedPoint = rhs.getRawBits();
+	}
+	return *this;
 }
 
 std::ostream &operator<<(std::ostream &out ,Fixed const &rhs){

@@ -12,6 +12,6 @@ class Fixed{
 		int getRawBits(void) const;
 	private:
 		int	_fixedPoint_nbr;
-		static const int fractionBits = 8;
+		static const int _fractionBits = 8;
 };
 #endif
