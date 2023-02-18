@@ -32,8 +32,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/ubuntu/42/cpp/cpp01",
-      "program": "/home/ubuntu/42/cpp/cpp01/build/Debug/outDebug",
+      "cwd": "/home/ubuntu/42/cpp",
+      "program": "/home/ubuntu/42/cpp/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
