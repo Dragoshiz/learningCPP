@@ -10,28 +10,28 @@ int main(void){
 	std::cout << "Hi my name is " << scav.getName() << " and I have " << scav.getAttackDmg() << " and " << scav.getHitPoints() <<  std::endl;
 	std::cout << "Hi my name is " << scav2.getName() << " and I have " << scav2.getAttackDmg() << " and " << scav2.getHitPoints() <<  std::endl;
 
-	scav.attack(scav.getName());
+	scav.attack(scav2.getName());
 	scav2.takeDamage(scav.getAttackDmg());
 
-	scav.attack(scav.getName());
+	scav.attack(scav2.getName());
 	scav2.takeDamage(scav.getAttackDmg());
 
-	scav.attack(scav.getName());
-	scav2.takeDamage(scav.getAttackDmg());
-
-	scav2.beRepaired(20);
-
-	scav.attack(scav.getName());
-	scav2.takeDamage(scav.getAttackDmg());
-
-	scav.attack(scav.getName());
-	scav2.takeDamage(scav.getAttackDmg());
-
-	scav.attack(scav.getName());
+	scav.attack(scav2.getName());
 	scav2.takeDamage(scav.getAttackDmg());
 
 	scav2.beRepaired(20);
 
-	scav.guardGate();
+	scav.attack(scav2.getName());
+	scav2.takeDamage(scav.getAttackDmg());
+
+	scav.attack(scav2.getName());
+	scav2.takeDamage(scav.getAttackDmg());
+
+	scav.attack(scav2.getName());
+	scav2.takeDamage(scav.getAttackDmg());
+
+	scav2.beRepaired(20);
+
+	scav2.guardGate();
 	return 0;
 }
