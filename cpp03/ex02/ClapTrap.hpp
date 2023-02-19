@@ -26,5 +26,4 @@ class ClapTrap{
 		int _energyPoints;
 		int _attckDmg;
 };
-
 #endif
