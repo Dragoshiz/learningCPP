@@ -37,33 +37,34 @@ cat << EOF > "${filename}.cpp"
 #include "${filename}.hpp"
 
 ${filename}::${filename}(){
-	std::cout << "\x1b[32mDefault constructor called\033[0m" << std::endl;
+	std::cout << "\x1b[32m${filename} default constructor called\033[0m" << std::endl;
 }
 
 ${filename}::${filename}(${filename} const &obj){
-	std::cout << "\x1b[33mCopy constructor called\033[0m" << std::endl;
+	std::cout << "\x1b[33m${filename} copy constructor called\033[0m" << std::endl;
+	*this = obj;
 }
 
 ${filename}::~${filename}(){
-	std::cout << "\x1b[31mDestructor called\033[0m" << std::endl;
+	std::cout << "\x1b[31m${filename} destructor called\033[0m" << std::endl;
 }
 
 ${filename}& ${filename}::operator=(${filename} const &obj){
 	//assign obj to this variables!
-	std::cout << "\x1b[33mCopy assignment operator called\033[0m" << std::endl;
+	std::cout << "\x1b[33m${filename} copy assignment operator called\033[0m" << std::endl;
 }
 
 EOF
 
 if [ "$yn" == "y" ]
 then
-	cat << EOF > "main.cpp"
-	#include "${filename}.hpp"
+cat << EOF > "main.cpp"
+#include "${filename}.hpp"
 
-	int main(){
-		//write your program.. special thanks to dimbrea
-		return 0;
-	}
+int main(){
+	//write your program.. special thanks to dimbrea
+	return 0;
+}
 
 EOF
 
