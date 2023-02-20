@@ -15,6 +15,7 @@
 		delete i;
 		delete j;
 		delete meta;
+	
 		const WrongAnimal* wrong = new WrongAnimal();
 		const WrongAnimal* w_cat = new WrongCat();
 		std::cout << wrong->getType() << " " << std::endl;
