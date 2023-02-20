@@ -1,11 +1,17 @@
-#! /bin/bash
+#!/bin/bash
 
 read -p "Enter file/class name: " filename
 
+read -p "Do you need a main/makefile? (type y or n) " yn
+
 touch "${filename}.hpp"
 touch "${filename}.cpp"
-touch "main.cpp"
-touch "Makefile"
+
+if [ "$yn" == "y" ]
+then
+	touch "main.cpp"
+	touch "Makefile"
+fi
 
 nano ${filename}.hpp
 filename_upper=$(echo "${filename}" | tr '[:lower:]' '[:upper:]')
@@ -49,13 +55,17 @@ ${filename}& ${filename}::operator=(${filename} const &obj){
 
 EOF
 
-cat << EOF > "main.cpp"
-#include "${filename}.hpp"
+if [ "$yn" == "y" ]
+then
+	cat << EOF > "main.cpp"
+	#include "${filename}.hpp"
 
-int main(){
-	//write your program.. special thanks to dimbrea
-	return 0;
-}
+	int main(){
+		//write your program.. special thanks to dimbrea
+		return 0;
+	}
 
 EOF
+
+fi
 echo "Files : ${filename}.hpp and ${filename}.cpp created and populated successfuly."
