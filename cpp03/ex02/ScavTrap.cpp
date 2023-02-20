@@ -31,6 +31,7 @@ ScavTrap& ScavTrap::operator=(ScavTrap const &obj){
 	this->setAttckDmg(obj.getAttackDmg());
 	this->setEnergyPoint(obj.getEnergyPoints());
 	this->setHitPoint(obj.getHitPoints());
+	std::cout << "ScavTrap copy assignment operator called" << std::endl;
 	return *this;
 }
 

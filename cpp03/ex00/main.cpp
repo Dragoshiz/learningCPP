@@ -11,6 +11,5 @@ int main(void){
 	{
 		clap.attack(trap2.getName());
 	}
-	std::cout << clap.getEnergyPoints() << std::endl;
 	return 0;
 }

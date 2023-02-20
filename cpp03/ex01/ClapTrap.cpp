@@ -1,13 +1,12 @@
 #include "ClapTrap.hpp"
 
-//to do getters and modify the constructor with std::string
 ClapTrap::ClapTrap(): _name("Random robot"), _hitPoints(10), _energyPoints(10), _attckDmg(0){
-	std::cout << this->_name << " Default constructor called" << std::endl;
+	std::cout << this->_name << "ClapTrap default constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string _name):
 _name(_name), _hitPoints(10), _energyPoints(10), _attckDmg(0){
-	std::cout << this->_name << " Name constructor called" << std::endl;
+	std::cout << this->_name << " ClapTrap constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(ClapTrap const &obj)
@@ -17,7 +16,7 @@ ClapTrap::ClapTrap(ClapTrap const &obj)
 }
 
 ClapTrap::~ClapTrap(){
-	std::cout << "\x1b[36mDestructor called\033[0m" << std::endl;
+	std::cout << "\x1b[31mDestructor called\033[0m" << std::endl;
 }
 
 ClapTrap & ClapTrap::operator=(ClapTrap const &obj){
@@ -25,7 +24,7 @@ ClapTrap & ClapTrap::operator=(ClapTrap const &obj){
 	this->_hitPoints = obj._hitPoints;
 	this->_energyPoints = obj._energyPoints;
 	this->_attckDmg = obj._attckDmg;
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "ClapTrap copy assignment operator called" << std::endl;
 	return *this;
 }
 void ClapTrap::takeDamage(unsigned int amount){
@@ -56,7 +55,7 @@ void ClapTrap::beRepaired(unsigned int amount){
 void ClapTrap::attack(const std::string &target){
 	if (this->_hitPoints > 0 && this->_energyPoints > 0)
 	{
-		std::cout << "ClapTrap " << this->_name << " attacks " << target << ", causing "  << getAttackDmg() << " points of damage!"<< std::endl;
+		std::cout << this->_name << " attacks " << target << ", causing "  << getAttackDmg() << " points of damage!"<< std::endl;
 		this->_energyPoints--;
 	}
 	else if ( this->_energyPoints == 0)
