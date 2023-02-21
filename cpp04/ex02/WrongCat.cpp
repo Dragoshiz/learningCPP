@@ -5,7 +5,7 @@ WrongCat::WrongCat(){
 	std::cout << "\x1b[32mWrongCat default constructor called\033[0m" << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat const &obj): WrongAAnimal(obj){
+WrongCat::WrongCat(WrongCat const &obj): WrongAnimal(obj){
 	std::cout << "\x1b[33mWrongCat copy constructor called\033[0m" << std::endl;
 	*this = obj;
 }

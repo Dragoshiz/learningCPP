@@ -4,8 +4,7 @@
 
 int main()
 {
-	AAnimal zanimal;
-	zanimal.makeSound();
+	// AAnimal  zaanimal; //this will not work
 	const AAnimal* j = new Dog();
 	const AAnimal* i = new Cat();
 	i->makeSound();

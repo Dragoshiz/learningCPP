@@ -3,7 +3,7 @@
 #include <iostream>
 #include "WrongAnimal.hpp"
 
-class WrongCat: public WrongAAnimal{
+class WrongCat: public WrongAnimal{
 	public:
 		WrongCat();
 		WrongCat(WrongCat const &);

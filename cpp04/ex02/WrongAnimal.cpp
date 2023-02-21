@@ -1,24 +1,24 @@
 #include "WrongAnimal.hpp"
 
-WrongAAnimal::WrongAAnimal(): wrongType("Wrong AAnimal"){
+WrongAnimal::WrongAnimal(): wrongType("Wrong AAnimal"){
 	std::cout << "\x1b[32mWrongAnimal default constructor called\033[0m" << std::endl;
 }
 
-WrongAAnimal::WrongAAnimal(WrongAAnimal const &obj){
+WrongAnimal::WrongAnimal(WrongAnimal const &obj){
 	std::cout << "\x1b[33mWrongAnimal copy constructor called\033[0m" << std::endl;
 	*this = obj;
 }
 
-WrongAAnimal::~WrongAAnimal(){
+WrongAnimal::~WrongAnimal(){
 	std::cout << "\x1b[31mWrongAnimal destructor called\033[0m" << std::endl;
 }
 
-WrongAAnimal& WrongAAnimal::operator=(WrongAAnimal const &obj){
+WrongAnimal& WrongAnimal::operator=(WrongAnimal const &obj){
 	this->wrongType = obj.wrongType;
-	std::cout << "\x1b[33mWrongAnimal copy assignment operator called\033[0m" << std::endl;
+	std::cout << "\x1b[33mWrongAAnimal copy assignment operator called\033[0m" << std::endl;
 	return *this;
 }
 
-void WrongAAnimal::makeSound(void)const{
+void WrongAnimal::makeSound(void)const{
 	std::cout << "\x1b[33mWrong animal making a sound\033[0m" << std::endl;
 }

@@ -1,6 +1,6 @@
 #include "WrongAnimal.hpp"
 
-WrongAnimal::WrongAnimal(): wrongType("Wrong Animal"){
+WrongAnimal::WrongAnimal(): wrongType("Wrong AAnimal"){
 	std::cout << "\x1b[32mWrongAnimal default constructor called\033[0m" << std::endl;
 }
 

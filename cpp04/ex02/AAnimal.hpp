@@ -9,7 +9,7 @@ class AAnimal{
 		virtual ~AAnimal();
 		AAnimal& operator=(AAnimal const &);
 		std::string getType(void)const{return this->type;};
-		virtual void makeSound(void)const;
+		virtual void makeSound(void)const = 0;
 	protected:
 		std::string type;
 };
