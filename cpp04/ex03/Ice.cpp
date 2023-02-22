@@ -1,6 +1,7 @@
 #include "Ice.hpp"
 
 Ice::Ice(){
+	this->_type = "ice";
 	std::cout << "\x1b[32mIce default constructor called\033[0m" << std::endl;
 }
 
@@ -14,7 +15,15 @@ Ice::~Ice(){
 }
 
 Ice& Ice::operator=(Ice const &obj){
-	//assign obj to this variables!
+	this->_type = obj._type;
 	std::cout << "\x1b[33mIce copy assignment operator called\033[0m" << std::endl;
+	return *this;
 }
 
+AMateria* Ice::clone(void)const{
+	return new Ice(*this);
+}
+
+void Ice::use(ICharacter& target){
+	std::cout << "* shoots an ice bolt at " + target.getName() + " *" << std::endl;
+}
