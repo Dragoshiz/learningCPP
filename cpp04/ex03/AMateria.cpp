@@ -28,6 +28,14 @@ std::string const &AMateria::getType(void)const{
 	return this->_type;
 }
 
+void AMateria::use(ICharacter& target)
+{
+	if (this->_type == "cure")
+		std::cout << "* heals " + target.getName() + "'s wounds *" << std::endl;
+	else if (this->_type == "ice")
+		std::cout << "* shoots an ice bolt at " + target.getName() + " *" << std::endl;
+}
+
 // void AMateria::setType(std::string const &type){
 // 	this->_type = type;
 // }

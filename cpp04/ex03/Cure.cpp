@@ -5,7 +5,7 @@ Cure::Cure(){
 	std::cout << "\x1b[32mCure default constructor called\033[0m" << std::endl;
 }
 
-Cure::Cure(Cure const &obj){
+Cure::Cure(Cure const &obj): AMateria(obj){
 	std::cout << "\x1b[33mCure copy constructor called\033[0m" << std::endl;
 	*this = obj;
 }
@@ -24,6 +24,6 @@ AMateria* Cure::clone(void)const{
 	return new Cure(*this);
 }
 
-void Cure::use(ICharacter& target){
-	std::cout << "* heals " + target.getName() + "'s wounds *" << std::endl;
-}
+// void Cure::use(ICharacter& target){
+// 	std::cout << "* heals " + target.getName() + "'s wounds *" << std::endl;
+// }

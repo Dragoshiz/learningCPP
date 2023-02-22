@@ -8,7 +8,7 @@ class Cure: public AMateria{
 		Cure(Cure const &);
 		~Cure();
 		Cure& operator=(Cure const &);
-		void use(ICharacter& target) override;
-		AMateria* clone(void) const override;
+		// void use(ICharacter& target) override;
+		AMateria* clone(void) const;
 };
 #endif

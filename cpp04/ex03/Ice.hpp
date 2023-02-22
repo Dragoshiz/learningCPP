@@ -8,8 +8,8 @@ class Ice: public AMateria{
 		Ice(Ice const &);
 		~Ice();
 		Ice& operator=(Ice const &);
-		AMateria* clone(void)const override;
-		void use(ICharacter& target) override;
+		AMateria* clone(void)const;
+		// void use(ICharacter& target) override;
 };
 #endif
 

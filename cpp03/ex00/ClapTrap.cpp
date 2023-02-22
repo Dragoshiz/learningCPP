@@ -1,6 +1,5 @@
 #include "ClapTrap.hpp"
 
-//to do getters and modify the constructor with std::string
 ClapTrap::ClapTrap(): _name("Random robot"), _hitPoints(10), _energyPoints(10), _attckDmg(0){
 	std::cout << "ClapTrap default constructor called" << std::endl;
 }

@@ -6,7 +6,13 @@ CC = c++
 
 RM = rm -rf
 
-SRCS = main.cpp AMateria.cpp Cure.cpp Ice.cpp ICharacter.cpp
+SRCS = main.cpp \
+AMateria.cpp \
+Cure.cpp Ice.cpp \
+ICharacter.cpp \
+IMateriaSource.cpp \
+MateriaSource.cpp \
+Character.cpp\
 
 OBJ = $(SRCS:.cpp=.o)
 

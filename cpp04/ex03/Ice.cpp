@@ -5,7 +5,7 @@ Ice::Ice(){
 	std::cout << "\x1b[32mIce default constructor called\033[0m" << std::endl;
 }
 
-Ice::Ice(Ice const &obj){
+Ice::Ice(Ice const &obj): AMateria(obj){
 	std::cout << "\x1b[33mIce copy constructor called\033[0m" << std::endl;
 	*this = obj;
 }
@@ -24,6 +24,6 @@ AMateria* Ice::clone(void)const{
 	return new Ice(*this);
 }
 
-void Ice::use(ICharacter& target){
-	std::cout << "* shoots an ice bolt at " + target.getName() + " *" << std::endl;
-}
+// void Ice::use(ICharacter& target){
+// 	std::cout << "* shoots an ice bolt at " + target.getName() + " *" << std::endl;
+// }
