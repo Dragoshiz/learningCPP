@@ -9,7 +9,6 @@ class Ice: public AMateria{
 		~Ice();
 		Ice& operator=(Ice const &);
 		AMateria* clone(void)const;
-		// void use(ICharacter& target) override;
 };
 #endif
 

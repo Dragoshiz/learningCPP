@@ -35,7 +35,3 @@ void AMateria::use(ICharacter& target)
 	else if (this->_type == "ice")
 		std::cout << "* shoots an ice bolt at " + target.getName() + " *" << std::endl;
 }
-
-// void AMateria::setType(std::string const &type){
-// 	this->_type = type;
-// }

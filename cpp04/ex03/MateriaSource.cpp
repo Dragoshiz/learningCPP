@@ -1,6 +1,6 @@
 #include "MateriaSource.hpp"
 
-MateriaSource::MateriaSource(){
+MateriaSource::MateriaSource():_materiasCount(0){
 	std::cout << "\x1b[32mMateriaSource default constructor called\033[0m" << std::endl;
 }
 
@@ -36,4 +36,11 @@ AMateria* MateriaSource::createMateria(std::string const & type){
 	}
 	std::cout << "Needed to learn this Materia" << std::endl;
 	return 0;
+}
+
+void MateriaSource::getMaterias(void){
+	for(int i=0; this->_materias[i]; i++){
+		std::cout << this->_materias[i]->getType() << "\n";
+	}
+	std::cout << std::endl;
 }
