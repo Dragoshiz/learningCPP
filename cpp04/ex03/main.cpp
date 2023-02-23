@@ -7,6 +7,7 @@
 
 int main()
 {
+	std::cout << "========Subject's main========" << std::endl;
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
@@ -14,9 +15,8 @@ int main()
 	AMateria* tmp;
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
-	delete tmp;
+	// delete tmp;
 	tmp = src->createMateria("cure");
-	src->getMaterias();
 	me->equip(tmp);
 	ICharacter* bob = new Character("bob");
 	me->use(0, *bob);
@@ -24,7 +24,7 @@ int main()
 	delete bob;
 	delete me;
 	delete src;
-	delete tmp;
+	// delete tmp;
 	return 0;
 }
 

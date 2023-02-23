@@ -22,10 +22,11 @@ MateriaSource& MateriaSource::operator=(MateriaSource const &obj){
 }
 
 void MateriaSource::learnMateria(AMateria* obj){
+	std::cout << "\x1b[35mLearnMateria called\033[0m" << std::endl;
 	if (this->_materiasCount >= 4)
 		return;
 	this->_materias[this->_materiasCount++] = obj;
-	std::cout << "\x1b[35mLearnMateria called\033[0m" << std::endl;
+	delete obj;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type){
