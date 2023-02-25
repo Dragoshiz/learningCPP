@@ -4,30 +4,37 @@
 
 int main()
 {
-	AAnimal zanimal;
-	zanimal.makeSound();
-	const AAnimal* j = new Dog();
-	const AAnimal* i = new Cat();
-	i->makeSound();
-	j->makeSound();
-	delete j;
-	delete i;
-
-	std::cout << "===========NEXT PHASE===========" << std::endl;
-	const AAnimal* animals[10];
-	for(int index =0; index < 10; index++)
 	{
-		if (index < 5)
-			animals[index] = new Dog;
-		else
-			animals[index] = new Cat;
+		Animal zanimal;
+		zanimal.makeSound();
+		const Animal* j = new Dog();
+		const Animal* i = new Cat();
+		i->makeSound();
+		j->makeSound();
+		delete j;
+		delete i;
 	}
-	for(int index2 = 0; index2 < 10; index2++)
+
 	{
-		if (index2 < 5)
-			delete animals[index2];
-		else
-			delete animals[index2];
+		std::cout << "===========NEXT PHASE===========" << std::endl;
+		Dog *dog = new Dog();
+		Dog doggo;
+		Cat *cat = new Cat();
+		Cat cat2;
+		dog->setIdea("stupid");
+		dog->setIdea("hello world");
+		dog->getIdeas();
+		cat->setIdea("littering");
+		cat->setIdea("hello");
+		cat2 = *cat;
+		delete cat;
+		cat2.getIdeas();
+		doggo = *dog;
+		dog->getIdeas();
+		doggo.getIdeas();
+		delete dog;
+		doggo.getIdeas();
+
 	}
 	return 0;
 }

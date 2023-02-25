@@ -8,11 +8,17 @@ RM = rm -rf
 
 SRCS = main.cpp \
 AMateria.cpp \
-Cure.cpp Ice.cpp \
-ICharacter.cpp \
-IMateriaSource.cpp \
+Cure.cpp \
+Ice.cpp \
 MateriaSource.cpp \
-Character.cpp\
+Character.cpp \
+
+TEST = test.cpp \
+AMateria.cpp \
+Cure.cpp \
+Ice.cpp \
+MateriaSource.cpp \
+Character.cpp \
 
 OBJ = $(SRCS:.cpp=.o)
 
@@ -21,6 +27,8 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 		$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
+test : $(TEST)
+	$(CC) $(FLAGS) $(TEST) -g 
 %.o : %.cpp
 	$(CC) $(FLAGS) -c $^ -o $@
 
