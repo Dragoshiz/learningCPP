@@ -1,8 +1,8 @@
 #include "Ice.hpp"
 
 Ice::Ice(){
-	this->_type = "ice";
 	std::cout << "\x1b[32mIce default constructor called\033[0m" << std::endl;
+	this->_type = "ice";
 }
 
 Ice::Ice(Ice const &obj): AMateria(obj){
@@ -15,8 +15,8 @@ Ice::~Ice(){
 }
 
 Ice& Ice::operator=(Ice const &obj){
-	this->_type = obj._type;
 	std::cout << "\x1b[33mIce copy assignment operator called\033[0m" << std::endl;
+	this->_type = obj._type;
 	return *this;
 }
 

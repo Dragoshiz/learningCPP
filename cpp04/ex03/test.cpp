@@ -19,7 +19,7 @@ int main()
 		
 		std::cout << "\n### CREATE new Character ###" << std::endl;
 		
-		ICharacter* me = new Character("me");
+		Character* me = new Character("me");
 		AMateria* tmp;
 		
 		std::cout << "\n### EQUIP 5 Materias (one too much) ###" << std::endl;
@@ -33,19 +33,20 @@ int main()
 		
 		std::cout << "\n### CREATE new Character ###" << std::endl;
 		
-		ICharacter *bob = new Character("bob");
+		Character *bob = new Character("bob");
 		*bob = *me;
 
-		
+		delete me;
+		ICharacter *santa = new Character("santa");
 		std::cout << "\n### USE 5 Materias (one too much) ###" << std::endl;
-		bob->use(0, *me);
-		bob->use(1, *me);
-		bob->use(2, *me);
-		bob->use(3, *me);
-		bob->use(4, *me);
+		bob->use(0, *santa);
+		bob->use(1, *santa);
+		bob->use(2, *santa);
+		bob->use(3, *santa);
+		bob->use(4, *santa);
 		std::cout << "\n### Starting destruction... ###" << std::endl;
 		delete src;
-		delete me;
+		delete santa;
 		delete bob;
 		return 0;
 	}

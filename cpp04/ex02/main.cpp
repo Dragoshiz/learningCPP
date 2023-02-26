@@ -4,29 +4,51 @@
 
 int main()
 {
-	// AAnimal  zaanimal; //this will not work
-	const AAnimal* j = new Dog();
-	const AAnimal* i = new Cat();
-	i->makeSound();
-	j->makeSound();
-	delete j;
-	delete i;
-
-	std::cout << "===========NEXT PHASE===========" << std::endl;
-	const AAnimal* animals[10];
-	for(int index =0; index < 10; index++)
 	{
-		if (index < 5)
-			animals[index] = new Dog;
-		else
-			animals[index] = new Cat;
+		std::cout << "===========Same as before===========" << std::endl;
+		// AAnimal zanimal;
+		// zanimal.makeSound(); this now doesn't work
+		const AAnimal* j = new Dog();
+		const AAnimal* i = new Cat();
+		i->makeSound();
+		j->makeSound();
+		delete j;
+		delete i;
 	}
-	for(int index2 = 0; index2 < 10; index2++)
+
 	{
-		if (index2 < 5)
-			delete animals[index2];
-		else
-			delete animals[index2];
+		std::cout << "===========Custom main===========" << std::endl;
+		Dog *dog = new Dog();
+		Dog doggo;
+		Cat *cat = new Cat();
+		Cat cat2;
+		dog->setIdea("stupid");
+		dog->setIdea("hello world");
+		dog->getIdeas();
+		cat->setIdea("littering");
+		cat->setIdea("hello");
+		cat2 = *cat;
+		delete cat;
+		cat2.getIdeas();
+		doggo = *dog;
+		dog->getIdeas();
+		doggo.getIdeas();
+		delete dog;
+		doggo.getIdeas();
+	}
+
+	{
+		std::cout << "====Showing correct constructor-destructor calls====" << std::endl;
+		AAnimal *animals[10];
+		for(int i=0; i < 10; i++)
+		{
+			if (i < 5)
+				animals[i] = new Dog();
+			else
+				animals[i] = new Cat();
+		}
+		for(int i=0; i< 10; i++)
+			delete animals[i];
 	}
 	return 0;
 }

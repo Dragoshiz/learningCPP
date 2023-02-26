@@ -35,9 +35,9 @@ test : $(TEST)
 debug :
 	$(CC) $(FLAGS) $(SRCS) -g -o $(NAME)
 clean :
-		$(RM) $(OBJ)
+		$(RM) $(OBJ) a.out
 
 fclean :
-		$(RM) $(OBJ) $(NAME)
+		$(RM) $(OBJ) $(NAME) a.out
 
 re: fclean all

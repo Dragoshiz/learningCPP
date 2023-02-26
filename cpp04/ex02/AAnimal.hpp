@@ -1,17 +1,17 @@
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef AANIMAL_HPP
+#define AANIMAL_HPP
 #include <iostream>
 
-class Animal{
+class AAnimal{
 	public:
-		Animal();
-		Animal(Animal const &);
-		virtual ~Animal();
-		Animal& operator=(Animal const &);
-		std::string getType(void)const{return this->type;};
-		virtual void makeSound(void)const;
+		AAnimal();
+		AAnimal(AAnimal const &);
+		virtual ~AAnimal();
+		AAnimal& operator=(AAnimal const &);
+		std::string getType(void)const{return this->_type;};
+		virtual void makeSound(void)const = 0;
 	protected:
-		std::string type;
+		std::string _type;
 };
 #endif
 

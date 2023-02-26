@@ -6,10 +6,12 @@ class Brain{
 	public:
 		Brain();
 		Brain(Brain const &);
-		~Brain();
+		virtual ~Brain();
 		Brain& operator=(Brain const &);
+		virtual void getIdeas(void);
+		virtual void setIdeas(std::string);
 	protected:
-		std::string ideas[100];
+		std::string _ideas[100];
 };
 #endif
 

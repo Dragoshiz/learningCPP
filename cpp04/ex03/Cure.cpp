@@ -1,8 +1,8 @@
 #include "Cure.hpp"
 
 Cure::Cure(){
-	this->_type = "cure";
 	std::cout << "\x1b[32mCure default constructor called\033[0m" << std::endl;
+	this->_type = "cure";
 }
 
 Cure::Cure(Cure const &obj): AMateria(obj){

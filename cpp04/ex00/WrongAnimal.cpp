@@ -14,8 +14,8 @@ WrongAnimal::~WrongAnimal(){
 }
 
 WrongAnimal& WrongAnimal::operator=(WrongAnimal const &obj){
-	this->wrongType = obj.wrongType;
 	std::cout << "\x1b[33mWrongAnimal copy assignment operator called\033[0m" << std::endl;
+	this->wrongType = obj.wrongType;
 	return *this;
 }
 

@@ -2,8 +2,10 @@
 #include "Cat.hpp"
 #include "WrongCat.hpp"
 
-	int main()
+int main()
+{
 	{
+		std::cout << "====Main from subject====" << std::endl;
 		const Animal* meta = new Animal();
 		const Animal* j = new Dog();
 		const Animal* i = new Cat();
@@ -15,14 +17,18 @@
 		delete i;
 		delete j;
 		delete meta;
-	
+	}
+
+	{
+		std::cout << "===Main for wrong animals===" << std::endl;
 		const WrongAnimal* wrong = new WrongAnimal();
 		const WrongAnimal* w_cat = new WrongCat();
-		std::cout << wrong->getType() << " " << std::endl;
-		std::cout << w_cat->getType() << " " << std::endl;
+		std::cout << wrong->getType() << std::endl;
+		std::cout << w_cat->getType() << std::endl;
 		wrong->makeSound();
 		w_cat->makeSound();
 		delete w_cat;
 		delete wrong;
 		return 0;
 	}
+}

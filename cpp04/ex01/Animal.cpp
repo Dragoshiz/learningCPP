@@ -5,8 +5,8 @@ Animal::Animal(): _type("Animal"){
 }
 
 Animal::Animal(Animal const &obj){
-	*this = obj;
 	std::cout << "\x1b[33mAnimal copy constructor called\033[0m" << std::endl;
+	*this = obj;
 }
 
 Animal::~Animal(){
@@ -14,8 +14,8 @@ Animal::~Animal(){
 }
 
 Animal& Animal::operator=(Animal const &obj){
-	_type = obj._type;
 	std::cout << "\x1b[33mAnimal copy assignment operator called\033[0m" << std::endl;
+	_type = obj._type;
 	return *this;
 }
 

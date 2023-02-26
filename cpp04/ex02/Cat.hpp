@@ -10,8 +10,9 @@ class Cat: public AAnimal{
 		~Cat();
 		Cat& operator=(Cat const &);
 		void makeSound(void)const;
+		void setIdea(std::string idea);
+		void getIdeas(void);
 	private:
 		Brain*	_catBrain;
 };
 #endif
-

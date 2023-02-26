@@ -2,16 +2,16 @@
 #define WRONGANIMAL_HPP
 #include <iostream>
 
-class WrongAAnimal{
+class WrongAnimal{
 	public:
-		WrongAAnimal();
-		WrongAAnimal(WrongAAnimal const &);
-		virtual ~WrongAAnimal();
-		WrongAAnimal& operator=(WrongAAnimal const &);
-		std::string getType(void)const{return this->wrongType;};
+		WrongAnimal();
+		WrongAnimal(WrongAnimal const &);
+		virtual ~WrongAnimal();
+		WrongAnimal& operator=(WrongAnimal const &);
+		std::string getType(void)const{return this->_wrongType;};
 		virtual void makeSound(void)const;
 	protected:
-		std::string wrongType;
+		std::string _wrongType;
 };
 #endif
 

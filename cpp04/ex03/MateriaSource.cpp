@@ -1,22 +1,22 @@
 #include "MateriaSource.hpp"
 
 MateriaSource::MateriaSource():_materiasCount(0){
+	std::cout << "\x1b[32mMateriaSource default constructor called\033[0m" << std::endl;
 	for (int i = 0; i < 4; i++)
 		_materias[i] = NULL;
-	std::cout << "\x1b[32mMateriaSource default constructor called\033[0m" << std::endl;
 }
 
 MateriaSource::MateriaSource(MateriaSource const &obj): IMateriaSource(obj){
+	std::cout << "\x1b[33mMateriaSource copy constructor called\033[0m" << std::endl;
 	for (int i = 0; i < 4; i++)
 		_materias[i] = NULL;
-	std::cout << "\x1b[33mMateriaSource copy constructor called\033[0m" << std::endl;
 	*this = obj;
 }
 
 MateriaSource::~MateriaSource(){
+	std::cout << "\x1b[31mMateriaSource destructor called\033[0m" << std::endl;
 	for (int i = 0; i < _materiasCount; i++)
 		delete _materias[i];
-	std::cout << "\x1b[31mMateriaSource destructor called\033[0m" << std::endl;
 }
 
 MateriaSource& MateriaSource::operator=(MateriaSource const &obj){

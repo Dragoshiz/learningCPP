@@ -17,9 +17,9 @@ AMateria::~AMateria(){
 }
 
 AMateria& AMateria::operator=(AMateria const &obj){
+	std::cout << "\x1b[33mAMateria copy assignment operator called\033[0m" << std::endl;
 	if(this != &obj){
 		this->_type = obj._type;
-		std::cout << "\x1b[33mAMateria copy assignment operator called\033[0m" << std::endl;
 	}
 	return *this;
 }

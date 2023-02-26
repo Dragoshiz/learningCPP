@@ -1,6 +1,6 @@
 NAME = animals
 
-FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
+FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic -g
 
 CC = c++
 

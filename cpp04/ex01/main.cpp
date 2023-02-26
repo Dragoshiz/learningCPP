@@ -5,6 +5,7 @@
 int main()
 {
 	{
+		std::cout << "===========Same as before===========" << std::endl;
 		Animal zanimal;
 		zanimal.makeSound();
 		const Animal* j = new Dog();
@@ -16,7 +17,7 @@ int main()
 	}
 
 	{
-		std::cout << "===========NEXT PHASE===========" << std::endl;
+		std::cout << "===========Custom main===========" << std::endl;
 		Dog *dog = new Dog();
 		Dog doggo;
 		Cat *cat = new Cat();
@@ -34,7 +35,20 @@ int main()
 		doggo.getIdeas();
 		delete dog;
 		doggo.getIdeas();
+	}
 
+	{
+		std::cout << "====Showing correct constructor-destructor calls====" << std::endl;
+		Animal *animals[10];
+		for(int i=0; i < 10; i++)
+		{
+			if (i < 5)
+				animals[i] = new Dog();
+			else
+				animals[i] = new Cat();
+		}
+		for(int i=0; i< 10; i++)
+			delete animals[i];
 	}
 	return 0;
 }

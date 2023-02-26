@@ -8,14 +8,13 @@ Dog::Dog(){
 
 Dog::Dog(Dog const &obj): Animal(obj){
 	std::cout << "\x1b[33mDog copy constructor called\033[0m" << std::endl;
-	for (int i = 0; i < 100; i++)
-		_dogBrain[i] = obj._dogBrain[i];
+	*this = obj;
 }
 
 Dog::~Dog()
 {
 	std::cout << "\x1b[31mDog destructor called\033[0m" << std::endl;
-	delete this->_dogBrain;
+	delete _dogBrain;
 }
 
 Dog& Dog::operator=(Dog const &obj){
