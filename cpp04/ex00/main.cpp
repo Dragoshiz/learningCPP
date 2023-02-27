@@ -22,12 +22,16 @@ int main()
 	{
 		std::cout << "===Main for wrong animals===" << std::endl;
 		const WrongAnimal* wrong = new WrongAnimal();
-		const WrongAnimal* w_cat = new WrongCat();
+		const WrongAnimal* wrong_cat = new WrongAnimal();
+		const WrongCat* w_cat = new WrongCat();
 		std::cout << wrong->getType() << std::endl;
+		std::cout << wrong_cat->getType() << std::endl;
 		std::cout << w_cat->getType() << std::endl;
 		wrong->makeSound();
+		wrong_cat->makeSound();
 		w_cat->makeSound();
 		delete w_cat;
+		delete wrong_cat;
 		delete wrong;
 		return 0;
 	}

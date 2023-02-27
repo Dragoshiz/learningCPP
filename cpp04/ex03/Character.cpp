@@ -20,14 +20,18 @@ Character::Character(Character const &obj): ICharacter(obj){
 Character::~Character(){
 	std::cout << "\x1b[31mCharacter destructor called\033[0m" << std::endl;
 	for (int i = 0; i < 4; i++)
-		delete _inventory[i];
+	{
+		if (_inventory[i])
+			delete _inventory[i];
+	}
 }
 
 Character& Character::operator=(Character const &obj){
 	std::cout << "\x1b[33mCharacter copy assignment operator called\033[0m" << std::endl;
 	for (int j=0; j < 4; j++)
 	{
-		delete _inventory[j];
+		if (_inventory[j])
+			delete _inventory[j];
 		_inventory[j] = NULL;
 		if(obj._inventory[j])
 			_inventory[j] = obj._inventory[j]->clone();
@@ -41,7 +45,8 @@ std::string const & Character::getName(void)const{
 
 void Character::equip(AMateria* m){
 	int i = 0;
-	while(_inventory[i++])
+	while(_inventory[i])
+		i++;
 	if (i > 3)
 		return;
 	_inventory[i] = m;

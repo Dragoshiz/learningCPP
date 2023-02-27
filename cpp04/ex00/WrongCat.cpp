@@ -2,7 +2,7 @@
 
 WrongCat::WrongCat(){
 	std::cout << "\x1b[32mWrongCat default constructor called\033[0m" << std::endl;
-	this->wrongType = "Wrong cat";
+	this->_wrongType = "Wrong cat";
 }
 
 WrongCat::WrongCat(WrongCat const &obj): WrongAnimal(obj){
@@ -16,7 +16,7 @@ WrongCat::~WrongCat(){
 
 WrongCat& WrongCat::operator=(WrongCat const &obj){
 	std::cout << "\x1b[33mWrongCat copy assignment operator called\033[0m" << std::endl;
-	this->wrongType = obj.wrongType;
+	this->_wrongType = obj._wrongType;
 	return *this;
 }
 

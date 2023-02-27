@@ -8,10 +8,10 @@ class WrongAnimal{
 		WrongAnimal(WrongAnimal const &);
 		virtual ~WrongAnimal();
 		WrongAnimal& operator=(WrongAnimal const &);
-		std::string getType(void)const{return this->wrongType;};
-		virtual void makeSound(void)const;
+		std::string getType(void)const;
+		void makeSound(void)const;
 	protected:
-		std::string wrongType;
+		std::string _wrongType;
 };
 #endif
 

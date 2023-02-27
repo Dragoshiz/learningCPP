@@ -22,3 +22,7 @@ WrongAnimal& WrongAnimal::operator=(WrongAnimal const &obj){
 void WrongAnimal::makeSound(void)const{
 	std::cout << "\x1b[33mWrong animal making a sound\033[0m" << std::endl;
 }
+
+std::string WrongAnimal::getType(void)const{
+	return this->_wrongType;
+}

@@ -23,3 +23,6 @@ void Animal::makeSound(void)const{
 	std::cout << "\x1b[33mStandard animal sound\033[0m" << std::endl;
 }
 
+std::string Animal::getType(void)const{
+	return this->_type;
+}
