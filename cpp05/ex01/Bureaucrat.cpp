@@ -15,7 +15,7 @@ Bureaucrat::Bureaucrat(std::string name): _name(name), _grade(150){
 }
 
 Bureaucrat::Bureaucrat(std::string name, int grade): _name(name), _grade(this->setGrade(grade)){
-	std::cout << "\x1b[33mBureaucrat name constructor called\033[0m" << std::endl;
+	std::cout << "\x1b[33mBureaucrat constructor called\033[0m" << std::endl;
 }
 Bureaucrat::~Bureaucrat(){
 	std::cout << "\x1b[31mBureaucrat destructor called\033[0m" << std::endl;
@@ -48,10 +48,22 @@ const char* Bureaucrat::GradeTooLowException::what() const throw(){
 }
 
 int	Bureaucrat::setGrade(int grade){
-	if (grade < 1)
-		throw(GradeTooHighException());
-	else if (grade > 150)
-		throw(GradeTooLowException());
+	try{
+		if (grade < 1)
+			throw(GradeTooHighException());
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	try{
+		if (grade > 150)
+			throw(GradeTooLowException());
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 	return grade;
 }
 
@@ -61,4 +73,21 @@ void Bureaucrat::increment(void){
 
 void	 Bureaucrat::decrement(void){
 	setGrade(_grade + 1);
+}
+
+void Bureaucrat::signForm(Form &obj){
+	if (obj.isSigned()){
+		std::cout << obj.getName() << " is already signed." << std::endl;
+		return ;
+	}
+	try
+	{
+		obj.beSigned(*this);
+	}
+	catch(const std::exception& err)
+	{
+		std::cerr << this->getName() << " couldn't sign " << obj.getName() << " because " << err.what() << "." << std::endl;
+		return ;
+	}
+	std::cout << this->getName() << " signed " << obj.getName() << std::endl;
 }
