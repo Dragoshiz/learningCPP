@@ -7,7 +7,7 @@ AForm("The no name ShrubberyCreationForm", 145, 137, false, "no target")
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target):
-AForm("the no name ShrubberyCreationForm", 145, 137, false, target){
+AForm("The no name ShrubberyCreationForm", 145, 137, false, target){
 	std::cout << "\x1b[33mShrubberyCreationForm name constructor called\033[0m" << std::endl;
 }
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &obj)

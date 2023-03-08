@@ -6,7 +6,7 @@ CC = c++
 
 RM = rm -rf
 
-SRCS = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp main.cpp
+SRCS = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp main.cpp Intern.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 
