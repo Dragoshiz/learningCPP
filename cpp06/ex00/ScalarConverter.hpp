@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <cstdio>
 #include <limits>
+#include <cfloat>
 
 class ScalarConverter{
 	public:
