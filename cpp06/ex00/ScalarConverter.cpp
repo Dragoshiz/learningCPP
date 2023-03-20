@@ -16,25 +16,13 @@ size_t countDecimals(const char* arg){
 	return (str.size() - decimPos - ((str.find('f') == std::string::npos)? 1 : 2));
 }
 
-bool isValidNum(const char *arg){
-	std::string str(arg);
-	bool dot = false;
-	for (int i = 0; arg[i]; i++)
-	{
-		if (arg[i] == '-' && arg[i + 1] != '\0' && i == 0)//might be a problem here
-			i++;
-		if (arg[i] == '.' && !dot){
-			dot = true;
-			i++;
-		}
-		if (isdigit(arg[i]) == 0)
-		{
-			if (arg[i] == 'f' && arg[i + 1] == '\0' && i != 0)
-				continue ;
-			return false;
-		}
-	}
-	return true;
+bool	isScientific(const char* arg){
+	std::string args = arg;
+	std::string arr[8] = {"inf","inff","nan","nanf","-inf","-inff", "+inf", "+inff"};
+	int i = 0;
+	while (i < 8 && args.compare(arr[i]) != 0)
+		i++;
+	return (i < 8);
 }
 
 bool	scientificNotation(const char* arg){
@@ -85,80 +73,98 @@ long ft_atol(const char *arg){
 	return result;
 }
 
-// bool isInt(const char *arg){
-// 	long num = ft_atol(arg);
-// 	if (num >= std::numeric_limits<int>::min() && num <= std::numeric_limits<int>::max())
-// 		return true;
-// 	return false;
-// }
-
-// bool isFloat(const char *arg){
-// 	long num = ft_atol(arg);
-// 	if (num >= -16777216 && num <= 16777215)
-// 		return true;
-// 	return false;
-// }
-
-// bool isDouble(const char *arg){//this was made for long long but it's not allowed in cpp98
-// 	long num = ft_atol(arg);
-// 	if (num >= -9007199254740991 && num <= 9007199254740991)
-// 		return true;
-// 	return false;
-// }
-
-// void isChar(const char* arg){
-// 	bool hasDot = false;
-// 	for (int i = 0; arg[i]; i++){
-// 		if (arg[i] == '.' && arg[i + 1] != '0')
-// 			hasDot = true;
-// 	}
-
-// 	int num = atoi(arg);
-// 	if (num >= 32 && num < 127 && !hasDot)
-// 		std::cout << "char: " << static_cast<char>(num) << "\n";
-// 	else if (num >= 0 && num < 32 && !hasDot)
-// 		std::cout << "char: Non displayable"<< "\n";
-// 	else
-// 		std::cout << "char: impossible" << std::endl;
-// }
-
-void convertChar(const char* arg){
-	int num = static_cast<int>(arg[0]);
-	std::cout << "char: " << arg[0] << "\n";
-	std::cout << "int: " << num << "\n";
-	std::cout << "float: " << num << ".0f" << "\n";
-	std::cout << "double: " << num << ".0" << std::endl;
+bool checkDecimalPoint(const char* arg, size_t pos){
+	pos++;
+	while(arg[pos]){
+		if (arg[pos] != '0')
+			return false;
+		pos++;
+	}
+	return true;
 }
 
-void convertInt(const char* arg){
-	int num = atoi(arg);
-	double doubl_num = atof(arg);
+void printChar(double num){
 	if (num >= 0 && num < 32)
 		std::cout << "char: Non displayable" << "\n";
 	else if (num >= 32 && num < 127)
 		std::cout << "char: " <<  static_cast<char>(num) << "\n";
 	else
 		std::cout << "char: impossible" << "\n";
+}
+
+void convertChar(const char* arg){
+	int num = static_cast<int>(arg[0]);
+	std::cout << "char: " << arg[0] << "\n";
 	std::cout << "int: " << num << "\n";
-	if (doubl_num > -std::numeric_limits<float>::max() && doubl_num < std::numeric_limits<float>::max())
-		std::cout << "float: " << static_cast<float>(num) << ".0f" << "\n";
+	std::cout << "float: " << static_cast<float>(num) << ".0f" << "\n";
+	std::cout << "double: " << static_cast<double>(num) << ".0" << std::endl;
+}
+
+void convertInt(const char* arg){
+	long num = atol(arg);
+	double doubl_num = atof(arg);
+	size_t dot = countDecimals(arg);
+	printChar(num);
+	if (num > -2147483648 && num < 2147483647)
+		std::cout << "int: " << static_cast<int>(num) << "\n";
+	else
+		std::cout << "int: impossible" << "\n";
+	if ((static_cast<float>(doubl_num) >= -std::numeric_limits<float>::max() && static_cast<float>(doubl_num) <= std::numeric_limits<float>::max()))
+			std::cout << "float: " << std::fixed << std::setprecision(dot) << static_cast<float>(doubl_num) << ((dot == 0) ? ".0f" : "f") << "\n";
 	else
 		std::cout << "float: impossible" << "\n";
-	std::cout << "int: " << static_cast<int>(num) << ".0" << std::endl;
+	if ((num >= -std::numeric_limits<double>::max() && num <= std::numeric_limits<double>::max()))
+		std::cout << "double: " << std::fixed <<std::setprecision(dot)<< num << ((dot == 0) ? ".0" : "") << std::endl;
+	else
+		std::cout << "double: Non Displayable" << std::endl;
 }
 
-bool ft_isAscii(const char* arg){
-	if (static_cast<int>(arg[0]) > 31 && static_cast<int>(arg[0]) < 127 && arg[1] == '\0' && !isdigit(arg[0])){
-		std::cout << "char: " << arg[0] << "\n";
-		int num = static_cast<int>(arg[0]);
+void convertFloat(const char* arg){
+	std::string argmnt = arg;
+	double num = atof(arg);
+	size_t dot = countDecimals(arg);
+	size_t pos = argmnt.find('.');
+	if (arg[pos + 1] == '0' && checkDecimalPoint(arg, pos))
+		printChar(num);
+	else
+		std::cout << "char: impossible" << "\n";
+	if (num > -2147483648 && num < 2147483647)
 		std::cout << "int: " << num << "\n";
-		std::cout << "float: " << static_cast<float>(num) << ".0f" << "\n";
-		std::cout << "int: " <<  static_cast<double>(num) << ".0" << std::endl;
-		return true;
-	}
-	return false;
+	else
+		std::cout << "int: impossible" << "\n";
+	if ((static_cast<float>(num) >= -std::numeric_limits<float>::max() && static_cast<float>(num) <= std::numeric_limits<float>::max()))
+		std::cout << "float: " << std::fixed << std::setprecision(dot) << static_cast<float>(num) << ((dot == 0) ? ".0f" : "f") << "\n";
+	else
+		std::cout << "float: impossible" << "\n";
+	if ((num >= -std::numeric_limits<double>::max() && num <= std::numeric_limits<double>::max()))
+		std::cout << "double: " << std::fixed <<std::setprecision(dot)<< num << ((dot == 0) ? ".0" : "") << std::endl;
+	else
+		std::cout << "double: Non Displayable" << std::endl;
+
 }
 
+void convertDouble(const char* arg){
+	std::string argmnt = arg;
+	double num = atof(arg);
+	size_t dot = countDecimals(arg);
+	size_t pos = argmnt.find('.');
+	if (arg[pos + 1] == '0' && checkDecimalPoint(arg, pos))
+		printChar(num);
+	else
+		std::cout << "char: impossible" << "\n";
+	if (num > -2147483648 && num < 2147483647)
+		std::cout << "int: " << static_cast<int>(num) << "\n";
+	else
+		std::cout << "int: impossible" << "\n";
+	if ((static_cast<float>(num) >= -std::numeric_limits<float>::max() && static_cast<float>(num) <= std::numeric_limits<float>::max()))
+			std::cout << "float: " << std::fixed << std::setprecision(dot) << static_cast<float>(num) << ((dot == 0) ? ".0f" : "f") << "\n";
+	else
+		std::cout << "float: impossible" << "\n";
+	if ((num >= -std::numeric_limits<double>::max() && num <= std::numeric_limits<double>::max()))
+		std::cout << "double: " << std::fixed <<std::setprecision(dot)<< num << ((dot == 0) ? ".0" : "") << std::endl;
+	else
+		std::cout << "double: Non Displayable" << std::endl;
+}
 
 bool isChar(const char *arg){
 	int decimal = static_cast<int>(arg[0]);
@@ -175,13 +181,10 @@ bool isInt(const char *arg){
 		if (!isdigit(arg[i]))
 			return false;
 	}
-	long num = ft_atol(arg);
-	if (num > -2147483648 && num < 2147483647)
-		return true;
-	return false;
+	return true;
 }
 
-bool isFloat(const char* arg){ //to be checked if it's the last one
+bool isFloat(const char* arg){
 	bool dot = false;
 	int i = 0;
 	if (arg[0] == '-')
@@ -205,7 +208,7 @@ bool isFloat(const char* arg){ //to be checked if it's the last one
 	return false;
 }
 
-bool isDouble(const char* arg){ //to be checked
+bool isDouble(const char* arg){
 	bool dot = false;
 	int i = 0;
 	if (arg[0] == '-')
@@ -225,7 +228,7 @@ bool isDouble(const char* arg){ //to be checked
 	return dot;
 }
 
-bool (*validator[])(const char *) = {isChar, isInt, isFloat, isDouble};
+bool (*validator[])(const char *) = {isChar, isInt, isFloat, isDouble, isScientific};
 
 void ScalarConverter::convert(const char* arg){
 	for (int i = 0; i < 5; i++){
@@ -234,50 +237,24 @@ void ScalarConverter::convert(const char* arg){
 			{
 			case 0:
 				convertChar(arg);
-				break;
+				return;
 			case 1:
 				convertInt(arg);
-				break;
+				return;
 			case 2:
-				std::cout << "float.\n";
-				break;
+				convertFloat(arg);
+				return;
 			case 3:
-				std::cout << "double.\n";
-				break;
+				convertDouble(arg);
+				return;
 			case 4:
 				scientificNotation(arg);
-				break;
+				return;
 			default:
-				break;
+				std::cout << "Invalid argument" << std::endl;
+				return;
 			}
 		}
 	}
+	std::cout << "Invalid argument" << std::endl;
 }
-
-// void ScalarConverter::convert(const char* arg){
-// 	std::string d = arg;
-// 	if (ft_isAscii(arg))
-// 		return ;
-// 	if (!isValidInt(arg))
-// 		printMsg(arg);
-// 	isChar(arg);
-// 	if (isInt(arg)){
-// 		int num_int = atoi(arg);
-// 		std::cout << "int: " << num_int << std::endl;
-// 	}
-// 	else{
-// 		std::cout << "int: Non displayable" << std::endl;
-// 	}
-// 	size_t dot = countDecimals(arg);
-// 		//problems always
-// 		double num_doubl = atof(arg);
-// 		if ((static_cast<float>(num_doubl) >= FLT_MIN && static_cast<float>(num_doubl) <= FLT_MAX)) //|| std::abs(num_float) < 0.0001)
-// 			std::cout << "float: " << std::fixed << std::setprecision(dot) << static_cast<float>(num_doubl) << ((dot == 0) ? ".0f" : "f") << "\n";
-// 		else
-// 			std::cout << "float: Non Displayable" << std::endl;
-		
-// 		if ((num_doubl >= std::numeric_limits<double>::min() && num_doubl <= std::numeric_limits<double>::max()))
-// 			std::cout << "double: " << std::fixed <<std::setprecision(dot)<< num_doubl << ((dot == 0) ? ".0" : "") << std::endl;
-// 		else
-// 			std::cout << "double: Non Displayable" << std::endl;
-// }
