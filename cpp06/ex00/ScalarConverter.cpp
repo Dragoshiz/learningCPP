@@ -129,7 +129,7 @@ void convertFloat(const char* arg){
 	else
 		std::cout << "char: impossible" << "\n";
 	if (num > -2147483648 && num < 2147483647)
-		std::cout << "int: " << num << "\n";
+		std::cout << "int: " << static_cast<int>(num) << "\n";
 	else
 		std::cout << "int: impossible" << "\n";
 	if ((static_cast<float>(num) >= -std::numeric_limits<float>::max() && static_cast<float>(num) <= std::numeric_limits<float>::max()))
