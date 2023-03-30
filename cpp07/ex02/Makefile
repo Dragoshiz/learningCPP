@@ -1,4 +1,4 @@
-NAME = uter
+NAME = d_array
 
 FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 
