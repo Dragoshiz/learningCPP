@@ -13,13 +13,13 @@ class Array{
 		Array(const unsigned int n){
 			_array = new T[n];
 			_size = n;
-			for (int i=0; i < _size; i++)
+			for (size_t i=0; i < _size; i++)
 				_array[i] = 0;
 		};
 
 		Array(Array const &obj){
 			_array = new T[(obj._size)];
-			for (int i = 0; i < obj._size; i++){
+			for (size_t i = 0; i < obj._size; i++){
 				_array[i] = obj._array[i];
 			}
 			_size = obj._size;
@@ -33,18 +33,21 @@ class Array{
 				if(_array != NULL)
 					delete[] _array;
 				_array = new T[_size];
-				for(int i=0; i < obj._size; i++){
+				for(size_t i=0; i < obj._size; i++){
 					_array[i] = obj._array[i];
 				}
 				_size = obj._size;
 			}
 			return *this;
 		};
-		T &operator[](int i){
-			if((i >= _size || i < 0) || (_size == 0 && i == 0))
+		// T& operator=(unsigned int i){
+		// 	return _array[i];
+		// }
+		T &operator[](unsigned int i)const{
+			if(i >= _size || (_size == 0 && i == 0))
 				throw(ArrayIndexOutOfBound());
 			return _array[i];
-		}
+		};
 		class ArrayIndexOutOfBound: public std::exception{
 			const char * what() const throw(){
 				return "Array index out of bounds\n";
@@ -55,7 +58,7 @@ class Array{
 		}
 	private:
 		T	*_array;
-		int	_size;
+		size_t	_size;
 };	
 #endif
 
