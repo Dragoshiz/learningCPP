@@ -29,13 +29,13 @@ class Array{
 		};
 		Array<T>& operator=(Array const &obj){
 			if (this != &obj){
+				_size = obj._size;
 				if(_array != NULL)
 					delete[] _array;
 				_array = new T[_size];
 				for(size_t i=0; i < obj._size; i++){
 					_array[i] = obj._array[i];
 				}
-				_size = obj._size;
 			}
 			return *this;
 		};

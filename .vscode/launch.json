@@ -5,7 +5,7 @@
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "/home/ubuntu/42/cpp/cpp07/ex02/array",
+      "program": "/home/ubuntu/42/cpp/cpp07/ex02/d_array",
       "args": [],
       "stopAtEntry": false,
       "cwd": "/home/ubuntu/42/cpp/cpp07/",
