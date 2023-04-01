@@ -4,7 +4,6 @@
 #include <exception>
 #include <unistd.h>
 
-
 template<class T>
 class Array{
 	public:
@@ -40,9 +39,6 @@ class Array{
 			}
 			return *this;
 		};
-		// T& operator=(unsigned int i){
-		// 	return _array[i];
-		// }
 		T &operator[](unsigned int i)const{
 			if(i >= _size || (_size == 0 && i == 0))
 				throw(ArrayIndexOutOfBound());
@@ -59,6 +55,6 @@ class Array{
 	private:
 		T	*_array;
 		size_t	_size;
-};	
-#endif
+};
 
+#endif
