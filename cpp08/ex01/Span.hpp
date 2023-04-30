@@ -7,6 +7,7 @@
 
 class Span{
 	public:
+		Span();
 		Span(unsigned int N);
 		Span(Span const &);
 		~Span();
@@ -20,7 +21,6 @@ class Span{
 		int longestSpan(void);
 	private:
 		size_t _size;
-		size_t _is_filled;
 		std::vector<int> d_vectr;
 };
 #endif
