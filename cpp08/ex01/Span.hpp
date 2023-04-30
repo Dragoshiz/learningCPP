@@ -1,9 +1,11 @@
 #ifndef SPAN_HPP
 #define SPAN_HPP
+#include <cstddef>
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <climits>
+#include <limits>
+#include <exception>
 
 class Span{
 	public:
@@ -20,8 +22,18 @@ class Span{
 		int shortestSpan(void);
 		int longestSpan(void);
 	private:
-		size_t _size;
+		class VectorSpaceException:public std::exception{
+			public:
+				const char* what() const throw();
+		};
+		class SpanNotPossibleException: public std::exception{
+			public:
+				const char* what() const throw();
+		};
+		size_t _is_filled;
 		std::vector<int> d_vectr;
 };
+
+
 #endif
 
