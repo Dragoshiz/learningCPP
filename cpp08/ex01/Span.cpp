@@ -1,7 +1,7 @@
 #include "Span.hpp"
 
 Span::Span():_is_filled(0), d_vectr(0){
-	std::cout << "Default constructor called span of size 5" << std::endl;
+	std::cout << "\x1b[32mDefault constructor called\033[0m" << std::endl;
 
 }
 
@@ -22,8 +22,8 @@ Span::~Span(){
 Span& Span::operator=(Span const &obj){
 	std::cout << "\x1b[33mSpan copy assignment operator called\033[0m" << std::endl;
 	_is_filled = obj._is_filled;
-	size_t sizes = std::min(d_vectr.size(), obj.d_vectr.size()); 
-	std::copy(obj.d_vectr.begin(), obj.d_vectr.begin() + sizes, d_vectr.begin());
+	d_vectr.resize(obj.d_vectr.size());
+	std::copy(obj.d_vectr.begin(), obj.d_vectr.end(), d_vectr.begin());
 	return *this;
 }
 
@@ -33,54 +33,34 @@ void Span::addNumber(int num){
 		_is_filled++;
 	}
 	else
-		std::cout << "Array already full of elements or int overflow" << std::endl;
+		throw(VectorSpaceException());
 }
 
 int Span::shortestSpan(void){
-	try{
-		if (_is_filled <= 1)
-			throw(SpanNotPossibleException());
-	}
-	catch(const std::exception &e){
-		std::cout << e.what() << std::endl;
-		exit(1);
-	}
+	if (_is_filled <= 1)
+		throw(SpanNotPossibleException());
 	int diff = std::numeric_limits<int>::max();
 	int res = 0;
 	std::sort(d_vectr.begin(), d_vectr.end());
-	std::cout << "elems sorted :\n";
-	showelem(); 
 	for (size_t i=0; i < d_vectr.size() - 1; i++){
 		res = d_vectr[i + 1] - d_vectr[i];
 		if (res < diff)
 			diff = res;
 	}
-	return  diff;
+	return diff;
 }
 
 int Span::longestSpan(void){
-	try{
-		if (_is_filled <= 1)
-			throw(SpanNotPossibleException());
-	}
-	catch(const std::exception &e){
-		std::cout << e.what() << std::endl;
-		exit(1);
-	}
+	if (_is_filled <= 1)
+		throw(SpanNotPossibleException());
 	std::sort(d_vectr.begin(), d_vectr.end());
 	int long_span = d_vectr[d_vectr.size() - 1] - d_vectr[0];
 	return long_span;
 }
 
 void Span::addManyNumbers(void){
-	try{
-		if(_is_filled >= d_vectr.size())
-			throw(VectorSpaceException());
-	}
-	catch(const std::exception &e){
-		std::cout << e.what() << std::endl;
-		exit(1);
-	}
+	if(_is_filled >= d_vectr.size())
+		throw(VectorSpaceException());
 	srand(time(NULL));
 	for (size_t i=_is_filled; i < d_vectr.size(); i++){
 		d_vectr[i] = rand() % 101;
