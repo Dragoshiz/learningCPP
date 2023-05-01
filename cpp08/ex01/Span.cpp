@@ -21,9 +21,11 @@ Span::~Span(){
 
 Span& Span::operator=(Span const &obj){
 	std::cout << "\x1b[33mSpan copy assignment operator called\033[0m" << std::endl;
-	_is_filled = obj._is_filled;
-	d_vectr.resize(obj.d_vectr.size());
-	std::copy(obj.d_vectr.begin(), obj.d_vectr.end(), d_vectr.begin());
+	if (this != &obj){
+		_is_filled = obj._is_filled;
+		d_vectr.resize(obj.d_vectr.size());
+		std::copy(obj.d_vectr.begin(), obj.d_vectr.end(), d_vectr.begin());
+	}
 	return *this;
 }
 
@@ -67,6 +69,19 @@ void Span::addManyNumbers(void){
 		_is_filled++;
 	}
 }
+
+// void Span::addManyNumbers(void){
+// 	int numsToAdd = d_vectr.size() - _is_filled;
+// 	if(_is_filled >= d_vectr.size())
+// 		throw(VectorSpaceException());
+// 	srand(time(NULL));
+// 	std::vector<int> to_add;
+// 	for (int i=0; i < numsToAdd; i++){
+// 		to_add.push_back(rand() % 101);
+// 	}
+	// d_vectr.insert(d_vectr.end(), to_add.begin(), to_add.end());
+	// _is_filled = numsToAdd;
+// }
 
 void Span::showelem(void){
 	for (size_t i=0; i < d_vectr.size(); i++){

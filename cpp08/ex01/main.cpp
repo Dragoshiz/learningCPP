@@ -3,6 +3,17 @@
 int main()
 {
 	{
+		std::cout << "Subject test\n";
+		Span sp = Span(5);
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
+	}
+	{
 		std::cout << "\n\n1st scope, we add numbers manually and copy operator and copy constructor\n";
 		Span sp = Span(5);
 		try{
