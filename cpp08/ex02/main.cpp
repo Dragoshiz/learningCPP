@@ -54,5 +54,27 @@ int main()
 		}
 		std::list<int> s(mstack);
 	}
+	{
+		std::cout << "\nTest for both forward and reverse iterators in an incremental and decremental fashion\n";
+		MutantStack<char> ms;
+		for (int i=75; i < 80; i++)
+		{
+			ms.push(i);
+		}
+
+		std::cout << "Forward iteration: ";
+		for (MutantStack<char>::iterator it = ms.begin(); it != ms.end(); ++it){
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl;
+
+		std::cout << "Reverse iteration: ";
+		for(MutantStack<char>::iterator rit = --ms.end();; --rit){
+			std::cout << *rit << " ";
+			if (rit == ms.begin())
+				break;
+		}
+		std::cout << std::endl;
+	}
 	return 0;
 }
