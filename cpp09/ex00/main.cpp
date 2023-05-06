@@ -11,8 +11,11 @@ int main(int argc, char *argv[]) {
   std::map<std::string, std::string> mapdb;
   checkNopen_File(std::string("data.csv"), db);
   checkNopen_File(arg, file);
-  populateMapDb(db, mapdb);
-
-  // parse_file(file, mapDb);
+  // populateMap(db, mapdb, ',');
+  // std::map<std::string, std::string>::iterator it;
+  // for (it = mapdb.begin(); it != mapdb.end(); ++it) {
+  //       std::cout << it->first << ": " << it->second << std::endl;
+  //   }
+  parse_file(file);
   return 0;
 }

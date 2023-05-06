@@ -13,6 +13,6 @@
 
 void checkNopen_File(std::string arg, std::ifstream &file);
 int parse_file(std::ifstream &file);
-void populateMapDb(std::ifstream& file, std::map<std::string, std::string>& mapDb);
+void populateMap(std::ifstream& file, std::map<std::string, std::string>& mapDb, char delim);
 
 #endif
