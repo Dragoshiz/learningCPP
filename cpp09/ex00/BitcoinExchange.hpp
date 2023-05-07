@@ -7,12 +7,10 @@
 #include <map>
 #include <string>
 #include <limits>
-#include <cstddef>
-#include <cstring>
 #include <iostream>
 
 void checkNopen_File(std::string arg, std::ifstream &file);
-int parse_file(std::ifstream &file);
+int parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb);
 void populateMap(std::ifstream& file, std::map<std::string, std::string>& mapDb, char delim);
-
+void errMsgs(int msg);
 #endif
