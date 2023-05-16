@@ -1,19 +1,27 @@
 #include "BitcoinExchange.hpp"
 
 void errMsgs(int msg){
-  std::string one = "Error: not a positive number.";
-  std::string two = "Error: too large a number.";
-  std::string three = "Error: bad input => ";
-  std::string four = "Error: could not open file.";
-
-  if(msg == 1)
-    std::cout << one << std::endl;
-  else if(msg == 2)
-    std::cout << two << std::endl;
-  else if(msg == 3)
-    std::cout << three;
-  else if(msg == 4)
-    std::cout << four << std::endl;
+  switch (msg)
+  {
+    case 1:
+      std::cerr << "Error: not a positive number." << std::endl;
+      break;
+    case 2:
+      std::cerr << "Error: too large a number." << std::endl;
+      break;
+    case 3:
+      std::cerr << "Error: bad input => ";
+      break;
+    case 4:
+      std::cerr << "Error: could not open file." << std::endl;
+      break;
+    case 5:
+      std::cerr << "Error: Bitcoin didn't exist back then" << std::endl;
+      break;
+    case 6:
+      std::cerr << "Error: argument file not found" << std::endl;
+      break;
+  }
 }
 
 void checkNopen_File(std::string arg, std::ifstream &file) {
@@ -27,7 +35,7 @@ void checkNopen_File(std::string arg, std::ifstream &file) {
   }
   file.open(arg.c_str(), std::ifstream::in);
   if (file.fail()) {
-    std::cerr << "Error: argument file not found" << std::endl;
+    errMsgs(4);
     exit(1);
   }
   return;
@@ -100,11 +108,22 @@ bool separator(std::string &separator){
   return separator.compare("|") == 0;
 }
 
+
 bool isInt(std::string &value){
   std::stringstream ss(value);
   long num;
+  size_t i = 0;
+
+  if (value[i] == '+')
+    i++;
+
+  while(i < value.length()){
+    if(!std::isdigit(value[i]))
+      return false;
+    i++;
+  }
   if (ss >> num){
-    if (num <= std::numeric_limits<int>::max())
+    if (num <= std::numeric_limits<int>::max() && num <= 1000)
       return true;
     else if (num > std::numeric_limits<int>::max())
       errMsgs(2);
@@ -115,38 +134,90 @@ bool isInt(std::string &value){
 bool isFloat(std::string &value){
   std::stringstream ss(value);
   float num;
+  size_t i = 0;
+  bool dot = false;
+  if (value[i] == '+')
+    i++;
+
+  while(i < value.length()){
+    if(std::isdigit(value[i]))
+      i++;
+    else if (value[i] == '.' && !dot){
+      dot = true;
+      i++;
+    }
+    else
+      return false;
+    }
   if (ss >> num){
-    if (num >= std::numeric_limits<float>::min() && num <= std::numeric_limits<float>::max())
+    if ((num >= std::numeric_limits<float>::min() && num <= std::numeric_limits<float>::max()) || num == 0)
       return true;
   }
   return false;
 }
 
-bool value(std::string &value){
-  int count = 0;
-  std::string::iterator it = value.begin();
-  while (it != value.end()){
-    if (std::isdigit(*it)){
-      ++it;
-      continue;
-    }
-    else if (*it == '.' && count == 0){
-      count++;
-      ++it;
-      continue;
-    }
-    else if (*it == '-'){
-      errMsgs(1);
-      break;
+bool check_value(std::string& value){
+  if (value.empty())
+    value = "No value given";
+  if (value.at(value.length() - 1) == '.' || value[0] == '.' || value.find("--") != std::string::npos){
+    errMsgs(3);
+    std::cerr << value << std::endl;
+    return false;
+  }
+  else if (value[0] == '-'){
+    errMsgs(1);
+    return false;
+  } 
+  for(int i=0; value[i]; i++){
+    if (!std::isdigit(value[i]) && value[i] != '.'){
+      errMsgs(3);
+      std::cerr << value << std::endl;
+      return false;
     }
   }
-  if (it == value.end() && !value.empty()){
-    if (count == 1)
-      return isFloat(value);
-    return isInt(value);
-  }
-  return false;
+  return true;
 }
+
+//function to check fo
+bool value(std::string& value){
+    if(!check_value(value))
+      return false;
+
+  size_t decimal = value.find(".");
+  if (decimal == std::string::npos)
+    return isInt(value);
+  else if (decimal == 0)
+    return false;
+  else if (decimal == value.length() - 1)
+    return false;
+  else{
+    std::string int_part = value.substr(0, decimal);
+    std::string fractional_part = value.substr(decimal + 1);
+    return isInt(int_part) && isInt(fractional_part) && isFloat(value);
+  }
+}
+
+
+void multiply_values(std::map<std::string, std::string>::iterator& it, std::string& tokn, std::string& date){
+   std::stringstream value(tokn);
+  if(isInt(tokn)){
+      float db_value;
+      int num_int;
+      value >> num_int;
+      std::stringstream db_ss(it->second);
+      db_ss >> db_value;
+      std::cout << date << " => "<< num_int << " = " << db_value * num_int << std::endl;
+  }
+  else if(isFloat(tokn)){
+    float db_value;
+    float num_fl;
+    value >> num_fl;
+    std::stringstream db_ss(it->second);
+    db_ss >> db_value;
+    std::cout << date << " => " << num_fl << " = " << db_value * num_fl << std::endl;
+  }
+}
+
 
 void getline_forward(std::stringstream& ss, std::string& tokn, int num){
   for (int i=0; i<num;i++){
@@ -154,33 +225,39 @@ void getline_forward(std::stringstream& ss, std::string& tokn, int num){
   }
 }
 
+//function that searches for the closest date if the user defined date is not found
+void getClosestDate(std::map<std::string, std::string>& mapdb, std::string& tokn, std::string& date){
+  std::map<std::string, std::string>::iterator it = mapdb.lower_bound(date);
+  if (it == mapdb.begin()){
+    errMsgs(5);
+    return;
+  }
+  else{
+    multiply_values(it, tokn , date);
+  }
+}
+
+//function to search for the date value from the user defined file inside the data map
 void searchMap(std::map<std::string, std::string>& mapdb,std::string& date, std::string& tokn){
   std::map<std::string, std::string>::iterator it = mapdb.find(date);
   std::stringstream value(tokn);
   if (it != mapdb.end()){
-    if(isInt(tokn)){
-      float db_value;
-      int num_int;
-      value >> num_int;
-      std::stringstream db_ss(it->second);
-      db_ss >> db_value;
-      std::cout << date << " => " << db_value * num_int << std::endl;
-    }
-    else if(isFloat(tokn)){
-      float db_value;
-      float num_fl;
-      value >> num_fl;
-      std::stringstream db_ss(it->second);
-      db_ss >> db_value;
-      std::cout << date << " => " << db_value * num_fl << std::endl;
-    }
+    multiply_values(it, tokn, date);
+  }
+  else if(date == "2009-01-01"){
+    errMsgs(5);
+    return;
+  }
+  else{
+    getClosestDate(mapdb, tokn,  date);
   }
 }
 
+//function that check each line of the file passed by the user
 void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
   std::stringstream ss(line);
   std::string tokn;
-  std::string date, num;
+  std::string date;
   while (ss.good()){
     getline_forward(ss, tokn, 1);
     if (datechck(tokn)){
@@ -188,10 +265,8 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
        getline_forward(ss, tokn, 1);
       if (separator(tokn)){
          getline_forward(ss, tokn, 1);
-        if (value(tokn)){
-          num = tokn;
-          searchMap(mapdb, date, num);
-        }
+        if (value(tokn))
+          searchMap(mapdb, date, tokn);
       }
       else{
         errMsgs(3);
@@ -207,6 +282,7 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
   }
 }
 
+//function to populate the map with the data.csv
 void populateMap(std::ifstream& file, std::map<std::string, std::string>& map, char delim){
   std::string line;
   while(std::getline(file, line)){
@@ -222,7 +298,8 @@ void populateMap(std::ifstream& file, std::map<std::string, std::string>& map, c
   }
 }
 
-int parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
+//function to parse the file passed by the user
+void parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
   std::string line;
   std::getline(file, line);
   if (line.compare("date | value") != 0){
@@ -232,5 +309,4 @@ int parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
   while (std::getline(file, line)){
     tokenizizer(line, mapdb);
   }
-  return 1;
 }

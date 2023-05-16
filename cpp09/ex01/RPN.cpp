@@ -3,19 +3,19 @@
 void errMsgs(int msg){
 	switch (msg){
 		case 1:
-			std::cerr << "Error: 1 argument needed" << std::endl;
+			std::cout << "Error: 1 argument needed" << std::endl;
 			break;
 		case 2:
-			std::cerr << "Error: wrong charachter found -> ";
+			std::cout << "Error: wrong charachter found -> ";
 			break;
 		case 3:
-			std::cerr << "Error: with the operators" << std::endl;
+			std::cout << "Error: with the operators" << std::endl;
 			break;
 		case 4:
-			std::cerr << "Error: not a good RPN rule" << std::endl;
+			std::cout << "Error: not a good RPN rule" << std::endl;
 			break;
 		case 5:
-			std::cerr << "Error: only a digit was given" << std::endl;
+			std::cout << "Error: only a digit was given" << std::endl;
 	}
 }
 

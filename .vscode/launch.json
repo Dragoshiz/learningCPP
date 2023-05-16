@@ -1,14 +1,15 @@
 {
-  "version": "0.2.0",
   "configurations": [
     {
       "name": "(gdb) Launch",
       "type": "cppdbg",
       "request": "launch",
-      "program": "/home/ubuntu/42/cpp/cpp08/ex01/span",
-      "args": [],
+      "program": "/home/ubuntu/42/cpp/cpp09/ex02/PmergeMe",
+      "args": [
+        "1", "4", "5", "0", " 124 6 7741 87 23"
+      ],
       "stopAtEntry": false,
-      "cwd": "/home/ubuntu/42/cpp/cpp08/ex01/",
+      "cwd": "/home/ubuntu/42/cpp/cpp09/ex01",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",

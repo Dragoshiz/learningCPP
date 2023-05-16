@@ -4,42 +4,41 @@ int main()
 {
 	{
 		std::cout << "Subject test\n";
-		Span sp = Span(5);
-		sp.addNumber(6);
-		sp.addNumber(3);
-		sp.addNumber(17);
-		sp.addNumber(9);
-		sp.addNumber(11);
+		Span sp = Span(4);
+		sp.addNumber(-1);
+		sp.addNumber(100);
+		sp.addNumber(-300);
+		sp.addNumber(-499);
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	}
-	{
-		std::cout << "\n\n1st scope, we add numbers manually and copy operator and copy constructor\n";
-		Span sp = Span(5);
-		try{
-			sp.addNumber(6);
-			sp.addNumber(1);
-			sp.addNumber(17);
-			sp.addNumber(11);
-			sp.addNumber(20);
-		}
-		catch(const std::exception &e){
-			std::cerr << e.what() << "\n";
-		}
-		std::cout << "Elements of sp object\n"; 
-		sp.showelem();
-		std::cout << "shortestSpan: "; 
-		std::cout << sp.shortestSpan() << "\n";
-		std::cout << "longestSpan: "; 
-		std::cout << sp.longestSpan() << std::endl;
-		Span spn;
-		spn = sp;
-		std::cout << "Elements of copy operator spn object\n";
-		spn.showelem();
-		Span spn2 = Span(sp);
-		std::cout << "Elements of copy constructor spn2 object\n";
-		spn2.showelem();
-	}
+	// {
+	// 	std::cout << "\n\n1st scope, we add numbers manually and copy operator and copy constructor\n";
+	// 	Span sp = Span(5);
+		// try{
+		// 	sp.addNumber(6);
+		// 	sp.addNumber(1);
+		// 	sp.addNumber(17);
+		// 	sp.addNumber(11);
+		// 	sp.addNumber(20);
+		// }
+		// catch(const std::exception &e){
+		// 	std::cerr << e.what() << "\n";
+		// }
+		// std::cout << "Elements of sp object\n"; 
+		// sp.showelem();
+		// std::cout << "shortestSpan: "; 
+		// std::cout << sp.shortestSpan() << "\n";
+		// std::cout << "longestSpan: "; 
+		// std::cout << sp.longestSpan() << std::endl;
+		// Span spn;
+		// spn = sp;
+		// std::cout << "Elements of copy operator spn object\n";
+		// spn.showelem();
+		// Span spn2 = Span(sp);
+		// std::cout << "Elements of copy constructor spn2 object\n";
+		// spn2.showelem();
+	// }
 
 	{
 		std::cout << "\n\n2nd scope, we add numbers using the addManyNumbers function\n";
