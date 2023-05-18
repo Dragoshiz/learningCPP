@@ -46,17 +46,6 @@ bool check_tokn(const std::string token){
 	return true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 int jacobsthal_nums(size_t n){
 	if (n == 0)
 		return 0;
@@ -64,14 +53,4 @@ int jacobsthal_nums(size_t n){
 		return 1;
 	return jacobsthal_nums(n - 1) + 2 * jacobsthal_nums(n - 2);
 }
-
-
-
-
-
-
-
-
-
-
 
