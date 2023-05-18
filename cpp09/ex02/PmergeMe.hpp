@@ -10,6 +10,7 @@
 #include <typeinfo>
 #include <sys/time.h>
 #include <string.h>
+#include <iomanip>
 
 typedef struct s_struct{
 	timeval start,end;
@@ -217,11 +218,13 @@ void print_infos(Container& container, s_struct *time){
 	std::string container_name;
 
 	long time_us= (time->end.tv_sec- time->start.tv_sec) * 1000000 + (time->end.tv_usec - time->start.tv_usec);
+	double time_s = static_cast<double>(time_us) / 1000000;
 	if (strcmp(typeid(Container).name(),"St6vectorIiSaIiEE") == 0)
 		container_name = "std::vector";
 	else
 		container_name = "std::deque";
-	std::cout << "Time to process a range of " << container.size() << " elements with " << container_name << ": " << time_us << " us" << std::endl;
+	std::cout << std::fixed << std::setprecision(6);
+	std::cout << "Time to process a range of " << container.size() << " elements with " << container_name << ": " << time_s << " us" << std::endl;
 }
 
 
