@@ -10,7 +10,7 @@ void errMsgs(int msg){
       std::cerr << "Error: too large a number." << std::endl;
       break;
     case 3:
-      std::cerr << "Error: bad input => ";
+      std::cerr << "Error: bad input";
       break;
     case 4:
       std::cerr << "Error: could not open file." << std::endl;
@@ -19,9 +19,18 @@ void errMsgs(int msg){
       std::cerr << "Error: Bitcoin didn't exist back then" << std::endl;
       break;
     case 6:
-      std::cerr << "Error: argument file not found" << std::endl;
-      break;
+       std::cerr << "Error: file is empty" << std::endl;
   }
+}
+
+bool containsOnlySpaces(const std::string& str) {
+  std::string::const_iterator it = str.begin();
+  for (it = str.begin(); it != str.end(); ++it) {
+    if (!std::isspace(static_cast<unsigned char>(*it))) {
+      return false;
+    }
+  }
+  return true;
 }
 
 void checkNopen_File(std::string arg, std::ifstream &file) {
@@ -84,6 +93,29 @@ bool yyyymmdd(std::string& dateValue){
   for (int i=0; i < 4; i++){
     if ((sh_months[i] == mm && day > 30)|| (mm == "02" && day > 28)){
         return false;
+    }
+  }
+  return true;
+}
+
+bool isValidFormat(const std::string& str) {
+  const std::string expectedFormat = "YYYY-MM-DD | ";
+
+  if (str.length() < expectedFormat.length()) {
+    return false;
+  }
+
+  for (size_t i = 0; i < expectedFormat.length(); ++i) {
+    if (i < 10) {
+      if (i == 4 || i == 7) {
+        if (str[i] != '-') {
+          return false;
+        }
+      } else if (!std::isdigit(str[i])) {
+        return false;
+      }
+    } else if (str[i] != expectedFormat[i]) {
+      return false;
     }
   }
   return true;
@@ -170,8 +202,7 @@ bool check_value(std::string& value){
   } 
   for(int i=0; value[i]; i++){
     if (!std::isdigit(value[i]) && value[i] != '.'){
-      errMsgs(3);
-      std::cerr << value << std::endl;
+
       return false;
     }
   }
@@ -219,10 +250,12 @@ void multiply_values(std::map<std::string, std::string>::iterator& it, std::stri
 }
 
 
-void getline_forward(std::stringstream& ss, std::string& tokn, int num){
+bool getline_forward(std::stringstream& ss, std::string& tokn, int num){
   for (int i=0; i<num;i++){
-    getline(ss, tokn, ' ');
+    if (!getline(ss, tokn, ' '))
+      return false;
   }
+  return true;
 }
 
 //function that searches for the closest date if the user defined date is not found
@@ -253,34 +286,41 @@ void searchMap(std::map<std::string, std::string>& mapdb,std::string& date, std:
   }
 }
 
-//function that check each line of the file passed by the user
 void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
   std::stringstream ss(line);
   std::string tokn;
   std::string date;
-  while (ss.good()){
-    getline_forward(ss, tokn, 1);
-    if (datechck(tokn)){
-      date = tokn;
-       getline_forward(ss, tokn, 1);
-      if (separator(tokn)){
-         getline_forward(ss, tokn, 1);
-        if (value(tokn))
-          searchMap(mapdb, date, tokn);
-      }
-      else{
-        errMsgs(3);
-        std::cout << tokn << std::endl;
-        getline_forward(ss, tokn, 1);
-      }
-    }
-    else{
+  while (!ss.eof()){
+    if (!getline_forward(ss, tokn, 1) && !datechck(tokn)){
       errMsgs(3);
-      std::cout << tokn << std::endl;
-      getline_forward(ss, tokn, 2);
+      std::cerr << " => " << line << "\n";
+      return;
     }
+    date = tokn;
+
+    getline_forward(ss, tokn, 1);
+    if (!separator(tokn)){
+      errMsgs(3);
+      std::cerr << " => " << line << "\n";
+      return;
+    }
+
+    getline_forward(ss, tokn, 1);
+    if (!value(tokn)){
+      errMsgs(3);
+      std::cerr << " => " << line << "\n";
+      return;
+    }
+
+    if(getline_forward(ss, tokn, 1)){
+      errMsgs(3);
+      std::cerr << " => " << line << "\n";
+      return;
+    }
+    searchMap(mapdb, date, tokn);
   }
 }
+
 
 //function to populate the map with the data.csv
 void populateMap(std::ifstream& file, std::map<std::string, std::string>& map, char delim){
@@ -306,7 +346,17 @@ void parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
     std::cerr << "Error: wrong input, should be 'date | value'" << std::endl;
     exit(1);
   }
+  if (file.peek() == EOF){
+    errMsgs(6);
+    return ;
+  }
   while (std::getline(file, line)){
-    tokenizizer(line, mapdb);
+    if(isValidFormat(line))
+      tokenizizer(line, mapdb);
+    else{
+      errMsgs(3);
+      std::cerr << " => " << line << "\n";
+      
+    }
   }
 }
