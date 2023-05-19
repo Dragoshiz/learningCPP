@@ -83,6 +83,10 @@ void push_and_calc(std::stack<int>& d_stack, char *argv){
 	while(argv[i]){
 		if (std::isdigit(argv[i]))
 			d_stack.push(argv[i] - '0');
+		else if(argv[i] == ' '){
+			i++;
+			continue;
+		}
 		else if (check_operators(argv[i]) && d_stack.size() >= 2){
 			int r_operand = d_stack.top();
 			d_stack.pop();

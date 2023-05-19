@@ -10,10 +10,10 @@ void errMsg(int msg){
 			std::cout << "Error: non positive int element passed in the argument" << std::endl;
 			break;
 		case 3:
-			std::cout << "Error: non digit element was passed in the argument" << std::endl;
+			std::cout << "Error: invalid input" << std::endl;
 			break;
 		case 4:
-			std::cout << "Error: element bigger than an int found" << std::endl;
+			std::cout << "Error: element greater than INT found" << std::endl;
 			break;
 		case 5:
 			std::cout << "Error: the elements are already sorted" << std::endl;

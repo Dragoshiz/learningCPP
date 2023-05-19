@@ -19,9 +19,14 @@ void errMsgs(int msg){
       std::cerr << "Error: Bitcoin didn't exist back then" << std::endl;
       break;
     case 6:
-       std::cerr << "Error: file is empty" << std::endl;
+      std::cerr << "Error: file is empty" << std::endl;
+      break;
+    case 7:
+      std::cerr << "Error: empty line" << std::endl;
+  
   }
 }
+
 
 bool containsOnlySpaces(const std::string& str) {
   std::string::const_iterator it = str.begin();
@@ -74,45 +79,6 @@ bool validDate(std::string& date, int ymd){
   return false;
 }
 
-//check that date is valid (leap years, and )
-bool yyyymmdd(std::string& dateValue){
-  std::string leaps[] = {"2012", "2016", "2020"};
-  std::string sh_months[] = {"04", "06", "09", "11"};
-  std::string yyyy = dateValue.substr(0,4);
-  std::string mm = dateValue.substr(5,2);
-  std::string dd = dateValue.substr(8,2);
-  std::stringstream ss(dd);
-  int day;
-  ss >> day;
-  if (mm == "02" && day == 29 ){
-    for (int i=0; i < 3; i++){
-      if(yyyy == leaps[i])
-        return true;
-    }
-  }
-  for (int i=0; i < 4; i++){
-    if ((sh_months[i] == mm && day > 30)|| (mm == "02" && day > 28)){
-        return false;
-    }
-  }
-  return true;
-}
-
-//function to check date if is valid
-bool datechck(std::string& dateValue){
-  if (dateValue.length() != 10)
-    return false;
-  int counter = 0;
-  std::stringstream date(dateValue);
-  std::string tokn;
-  while (std::getline(date, tokn, '-')){
-    if (!isDigit(tokn) || !validDate(tokn, counter % 3))
-      return false;
-    counter++;
-  }
-  return yyyymmdd(dateValue);
-}
-
 bool separator(std::string &separator){
   return separator.compare("|") == 0;
 }
@@ -160,37 +126,15 @@ bool isFloat(std::string &value){
     }
   if (ss >> num){
     if ((num >= std::numeric_limits<float>::min() && num <= std::numeric_limits<float>::max()) || num == 0)
-      return true;
+      if (num <= 1000 && num >= 0)
+        return true;
   }
   return false;
 }
 
-bool check_value(std::string& value){
-  if (value.empty())
-    value = "No value given";
-  if (value.at(value.length() - 1) == '.' || value[0] == '.' || value.find("--") != std::string::npos){
-    errMsgs(3);
-    std::cerr << value << std::endl;
-    return false;
-  }
-  else if (value[0] == '-'){
-    errMsgs(1);
-    return false;
-  } 
-  for(int i=0; value[i]; i++){
-    if (!std::isdigit(value[i]) && value[i] != '.'){
 
-      return false;
-    }
-  }
-  return true;
-}
-
-//function to check fo
+//function to check float
 bool value(std::string& value){
-    if(!check_value(value))
-      return false;
-
   size_t decimal = value.find(".");
   if (decimal == std::string::npos)
     return isInt(value);
@@ -199,9 +143,7 @@ bool value(std::string& value){
   else if (decimal == value.length() - 1)
     return false;
   else{
-    std::string int_part = value.substr(0, decimal);
-    std::string fractional_part = value.substr(decimal + 1);
-    return isInt(int_part) && isInt(fractional_part) && isFloat(value);
+    return isFloat(value);
   }
 }
 
@@ -227,13 +169,38 @@ void multiply_values(std::map<std::string, std::string>::iterator& it, std::stri
 }
 
 
-bool getline_forward(std::stringstream& ss, std::string& tokn, int num){
+int getline_forward(std::stringstream& ss, std::string& tokn, int num){
   for (int i=0; i<num;i++){
     if (!getline(ss, tokn, ' '))
-      return false;
+      return 1;
   }
-  return true;
+  return 0;
 }
+
+
+int check_value(std::string& value){
+  if (value.empty()){
+    value = "No value given";
+    return 3;  // Return error code 3
+  }
+  
+  if ((value.at(value.length() - 1) == '.' || value[0] == '.' || value.find("--") != std::string::npos)){
+    return 3;  // Return error code 3
+  }
+
+  if (value[0] == '-'){
+    return 1;  // Return error code 1
+  } 
+
+  for(int i=0; value[i]; i++){
+    if (!std::isdigit(value[i]) && value[i] != '.'){
+      return 3;  // Return error code 2
+    }
+  }
+
+  return 0; // No error
+}
+
 
 //function that searches for the closest date if the user defined date is not found
 void getClosestDate(std::map<std::string, std::string>& mapdb, std::string& tokn, std::string& date){
@@ -263,48 +230,105 @@ void searchMap(std::map<std::string, std::string>& mapdb,std::string& date, std:
   }
 }
 
+//check that date is valid (leap years, and )
+int yyyymmdd(std::string& dateValue){
+  std::string leaps[] = {"2012", "2016", "2020"};
+  std::string sh_months[] = {"04", "06", "09", "11"};
+  std::string yyyy = dateValue.substr(0,4);
+  std::string mm = dateValue.substr(5,2);
+  std::string dd = dateValue.substr(8,2);
+  std::stringstream ss(dd);
+  int day;
+  ss >> day;
+  if (mm == "02" && day == 29 ){
+    for (int i=0; i < 3; i++){
+      if(yyyy == leaps[i])
+        return 0;  // No error
+    }
+    return 4;  // Return error code 4
+  }
+  for (int i=0; i < 4; i++){
+    if ((sh_months[i] == mm && day > 30)|| (mm == "02" && day > 28)){
+        return 5;  // Return error code 5
+    }
+  }
+  return 0; // No error
+}
+
+
+//function to check date if is valid
+int datechck(std::string& dateValue){
+  if (dateValue.length() != 10){
+    return 3;
+  }
+  int counter = 0;
+  std::stringstream date(dateValue);
+  std::string tokn;
+  while (std::getline(date, tokn, '-')){
+    if (!isDigit(tokn) || !validDate(tokn, counter % 3)){
+      return 3;
+    }
+    counter++;
+  }
+  return yyyymmdd(dateValue);  // Pass error code through
+}
+
 void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
   std::stringstream ss(line);
   std::string tokn;
   std::string date;
+  int errorCode;
+
   while (!ss.eof()){
-    if (!getline_forward(ss, tokn, 1) && !datechck(tokn)){
+    errorCode = getline_forward(ss, tokn, 1);
+    if (errorCode){
       errMsgs(3);
+      std::cerr << " => " << line << "\n";
+      continue;
+    }
+
+    errorCode = datechck(tokn);
+    if (errorCode){
+      errMsgs(errorCode);
       std::cerr << " => " << line << "\n";
       return;
     }
     date = tokn;
 
-    getline_forward(ss, tokn, 1);
-    if (!separator(tokn)){
+    errorCode = getline_forward(ss, tokn, 1);
+    if (errorCode || !separator(tokn)){
+      std::cerr << " => " << line << "\n";
+      return;
+    }
+
+    if(!getline_forward(ss, tokn, 1)){
+      errorCode = check_value(tokn);
+
+      if (errorCode || check_value(tokn)){
+        errMsgs(errorCode);
+        if (errorCode == 3)
+          std::cerr << " => " << line << "\n";
+        return;
+      }
+    }
+
+    std::string is_space;
+    errorCode = getline_forward(ss, is_space, 1);
+    if(!errorCode){
       errMsgs(3);
       std::cerr << " => " << line << "\n";
       return;
     }
 
-    getline_forward(ss, tokn, 1);
-    if (!value(tokn)){
-      errMsgs(3);
-      std::cerr << " => " << line << "\n";
-      return;
-    }
-    std::string is_space;
-    if(getline_forward(ss, is_space, 1)){
-      errMsgs(3);
-      std::cerr << " => " << line << "\n";
-      return;
-    }
-    if(is_space == "")
+    if(is_space == ""){
       searchMap(mapdb, date, tokn);
-    else{
+    } else {
       errMsgs(3);
-      std::cerr << " => " << line << "\n";
+      std::cerr <<  " => " << line << "\n";
       return;
     }
-    
   }
 }
-
 
 //function to populate the map with the data.csv
 void populateMap(std::ifstream& file, std::map<std::string, std::string>& map, char delim){
@@ -334,8 +358,11 @@ void parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
     errMsgs(6);
     return ;
   }
+  // int count = 0;
   while (std::getline(file, line)){
-    if(!line.empty() &&  !containsOnlySpaces(line))
+    if(!line.empty() &&  !containsOnlySpaces(line)){
       tokenizizer(line, mapdb);
+      // count++;
+    }
   }
 }
