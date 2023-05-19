@@ -98,29 +98,6 @@ bool yyyymmdd(std::string& dateValue){
   return true;
 }
 
-bool isValidFormat(const std::string& str) {
-  const std::string expectedFormat = "YYYY-MM-DD | ";
-
-  if (str.length() < expectedFormat.length()) {
-    return false;
-  }
-
-  for (size_t i = 0; i < expectedFormat.length(); ++i) {
-    if (i < 10) {
-      if (i == 4 || i == 7) {
-        if (str[i] != '-') {
-          return false;
-        }
-      } else if (!std::isdigit(str[i])) {
-        return false;
-      }
-    } else if (str[i] != expectedFormat[i]) {
-      return false;
-    }
-  }
-  return true;
-}
-
 //function to check date if is valid
 bool datechck(std::string& dateValue){
   if (dateValue.length() != 10)
@@ -311,13 +288,20 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
       std::cerr << " => " << line << "\n";
       return;
     }
-
-    if(getline_forward(ss, tokn, 1)){
+    std::string is_space;
+    if(getline_forward(ss, is_space, 1)){
       errMsgs(3);
       std::cerr << " => " << line << "\n";
       return;
     }
-    searchMap(mapdb, date, tokn);
+    if(is_space == "")
+      searchMap(mapdb, date, tokn);
+    else{
+      errMsgs(3);
+      std::cerr << " => " << line << "\n";
+      return;
+    }
+    
   }
 }
 
@@ -351,12 +335,7 @@ void parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
     return ;
   }
   while (std::getline(file, line)){
-    if(isValidFormat(line))
+    if(!line.empty() &&  !containsOnlySpaces(line))
       tokenizizer(line, mapdb);
-    else{
-      errMsgs(3);
-      std::cerr << " => " << line << "\n";
-      
-    }
   }
 }
