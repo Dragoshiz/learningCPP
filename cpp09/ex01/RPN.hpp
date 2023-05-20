@@ -7,6 +7,6 @@
 
 void errMsgs(int msg);
 bool check_arg(char *argv);
-void push_and_calc(std::stack<int>& d_stack, char *argv);
+void push_and_calc(std::stack<double>& d_stack, char *argv);
 
 #endif

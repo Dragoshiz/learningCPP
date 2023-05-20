@@ -45,7 +45,7 @@ bool check_arg(char *argv){
 		}
 		else{
 			errMsgs(2);
-			std::cerr << argv[i] << std::endl;
+			std::cout << argv[i] << std::endl;
 			return false;
 		}
 		i++;
@@ -60,25 +60,22 @@ bool check_arg(char *argv){
 	return true;
 }
 
-int operation(int l, int r, char oper ){
-	char opers[] = {'+', '-', '*', '/'};
-	int i = 0;
-	while (opers[i] != oper) i++;
-	switch (i)
+double operation(double l, double r, char oper ){
+	switch (oper)
 	{
-		case 0:
+		case '+':
 			return l + r;
-		case 1:
+		case '-':
 			return l - r;
-		case 2:
+		case '*':
 			return l * r;
-		case 3:
+		case '/':
 			return l / r;
 	}
 	return 0;
 }
 
-void push_and_calc(std::stack<int>& d_stack, char *argv){
+void push_and_calc(std::stack<double>& d_stack, char *argv){
 	int i = 0;
 	while(argv[i]){
 		if (std::isdigit(argv[i]))
@@ -88,9 +85,9 @@ void push_and_calc(std::stack<int>& d_stack, char *argv){
 			continue;
 		}
 		else if (check_operators(argv[i]) && d_stack.size() >= 2){
-			int r_operand = d_stack.top();
+			double r_operand = d_stack.top();
 			d_stack.pop();
-			int l_operand = d_stack.top();
+			double l_operand = d_stack.top();
 			d_stack.pop();
 			d_stack.push(operation(l_operand, r_operand, argv[i]));
 		}

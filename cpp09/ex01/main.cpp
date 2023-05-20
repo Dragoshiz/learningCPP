@@ -5,7 +5,7 @@ int main(int argc, char* argv[]){
 		errMsgs(1);
 		return 1;
 	}
-	std::stack<int> d_stack;
+	std::stack<double> d_stack;
 	if (!check_arg(argv[1])){
 		return 1;
 	}
