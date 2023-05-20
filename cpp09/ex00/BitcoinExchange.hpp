@@ -8,6 +8,8 @@
 #include <string>
 #include <limits>
 #include <iostream>
+#include <iomanip>
+#include <cmath>
 
 void checkNopen_File(std::string arg, std::ifstream &file);
 void parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb);

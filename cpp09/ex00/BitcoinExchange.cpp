@@ -84,7 +84,7 @@ bool separator(std::string &separator){
 }
 
 
-bool isInt(std::string &value){
+int isInt(std::string &value){
   std::stringstream ss(value);
   long num;
   size_t i = 0;
@@ -94,19 +94,21 @@ bool isInt(std::string &value){
 
   while(i < value.length()){
     if(!std::isdigit(value[i]))
-      return false;
+      return 3;
     i++;
   }
   if (ss >> num){
-    if (num <= std::numeric_limits<int>::max() && num <= 1000)
-      return true;
+    if (num <= std::numeric_limits<int>::max() && num >= 0 && num <= 1000)
+      return 0;
     else if (num > std::numeric_limits<int>::max())
-      errMsgs(2);
+      return 2;
+    else if (num < 0)
+      return 1;
   }
-  return false;
+  return 3;
 }
 
-bool isFloat(std::string &value){
+int  isFloat(std::string &value){
   std::stringstream ss(value);
   float num;
   size_t i = 0;
@@ -122,26 +124,29 @@ bool isFloat(std::string &value){
       i++;
     }
     else
-      return false;
+      return 3;
     }
   if (ss >> num){
-    if ((num >= std::numeric_limits<float>::min() && num <= std::numeric_limits<float>::max()) || num == 0)
+    if ((num >= std::numeric_limits<float>::min() && num <= std::numeric_limits<float>::max()) || num == 0){
       if (num <= 1000 && num >= 0)
-        return true;
+        return 0;
+      else if (num < 0)
+        return 2;
+    }
   }
-  return false;
+  return 3;
 }
 
 
 //function to check float
-bool value(std::string& value){
+int value(std::string& value){
   size_t decimal = value.find(".");
   if (decimal == std::string::npos)
     return isInt(value);
   else if (decimal == 0)
-    return false;
+    return 3;
   else if (decimal == value.length() - 1)
-    return false;
+    return 3;
   else{
     return isFloat(value);
   }
@@ -150,21 +155,38 @@ bool value(std::string& value){
 
 void multiply_values(std::map<std::string, std::string>::iterator& it, std::string& tokn, std::string& date){
    std::stringstream value(tokn);
-  if(isInt(tokn)){
+  if(!isInt(tokn)){
       float db_value;
       int num_int;
       value >> num_int;
       std::stringstream db_ss(it->second);
       db_ss >> db_value;
-      std::cout << date << " => "<< num_int << " = " << db_value * num_int << std::endl;
+      float result = db_value * num_int;
+      if (floor(result) == result){
+        std::cout << std::fixed << std::setprecision(0);
+        std::cout << date << " => "<< num_int << " = " << result << std::endl;
+      }
+      else{
+        std::cout << std::fixed << std::setprecision(2);
+        std::cout << date << " => " << num_int << " = " << result << std::endl;
+      }
   }
-  else if(isFloat(tokn)){
+
+  else if(!isFloat(tokn)){
     float db_value;
     float num_fl;
     value >> num_fl;
     std::stringstream db_ss(it->second);
     db_ss >> db_value;
-    std::cout << date << " => " << num_fl << " = " << db_value * num_fl << std::endl;
+    float result_fl = db_value * num_fl;
+    if (floor(result_fl) == result_fl){
+      std::cout << std::fixed << std::setprecision(0);
+      std::cout << date << " => "<< num_fl << " = " << result_fl << std::endl;
+    }
+    else{
+      std::cout << std::fixed << std::setprecision(2);
+      std::cout << date << " => " << num_fl << " = " << result_fl << std::endl;
+    }
   }
 }
 
@@ -179,26 +201,21 @@ int getline_forward(std::stringstream& ss, std::string& tokn, int num){
 
 
 int check_value(std::string& value){
-  if (value.empty()){
-    value = "No value given";
-    return 3;  // Return error code 3
-  }
-  
-  if ((value.at(value.length() - 1) == '.' || value[0] == '.' || value.find("--") != std::string::npos)){
-    return 3;  // Return error code 3
+  if ((value.empty() || value.at(value.length() - 1) == '.' || value[0] == '.' || value.find("--") != std::string::npos)){
+    return 3;
   }
 
   if (value[0] == '-'){
-    return 1;  // Return error code 1
+    return 1;
   } 
 
   for(int i=0; value[i]; i++){
     if (!std::isdigit(value[i]) && value[i] != '.'){
-      return 3;  // Return error code 2
+      return 3;
     }
   }
 
-  return 0; // No error
+  return 0;
 }
 
 
@@ -243,16 +260,16 @@ int yyyymmdd(std::string& dateValue){
   if (mm == "02" && day == 29 ){
     for (int i=0; i < 3; i++){
       if(yyyy == leaps[i])
-        return 0;  // No error
+        return 0;
     }
-    return 4;  // Return error code 4
+    return 4;
   }
   for (int i=0; i < 4; i++){
     if ((sh_months[i] == mm && day > 30)|| (mm == "02" && day > 28)){
-        return 5;  // Return error code 5
+        return 5;
     }
   }
-  return 0; // No error
+  return 0;
 }
 
 
@@ -304,11 +321,16 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
     if(!getline_forward(ss, tokn, 1)){
       errorCode = check_value(tokn);
 
-      if (errorCode || check_value(tokn)){
-        errMsgs(errorCode);
-        if (errorCode == 3)
+      if (!errorCode){
+        errorCode = value(tokn);
+        if (errorCode == 3){
+          errMsgs(3);
           std::cerr << " => " << line << "\n";
-        return;
+          return;
+        }
+      }
+      else{
+        return errMsgs(errorCode);
       }
     }
 
@@ -358,11 +380,9 @@ void parse_file(std::ifstream &file, std::map<std::string, std::string>& mapdb){
     errMsgs(6);
     return ;
   }
-  // int count = 0;
   while (std::getline(file, line)){
     if(!line.empty() &&  !containsOnlySpaces(line)){
       tokenizizer(line, mapdb);
-      // count++;
     }
   }
 }
