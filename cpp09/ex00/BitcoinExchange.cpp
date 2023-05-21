@@ -100,7 +100,7 @@ int isInt(std::string &value){
   if (ss >> num){
     if (num <= std::numeric_limits<int>::max() && num >= 0 && num <= 1000)
       return 0;
-    else if (num > std::numeric_limits<int>::max())
+    else if (num > std::numeric_limits<int>::max() || num > 1000)
       return 2;
     else if (num < 0)
       return 1;
@@ -131,6 +131,8 @@ int  isFloat(std::string &value){
       if (num <= 1000 && num >= 0)
         return 0;
       else if (num < 0)
+        return 1;
+      else if (num > 1000)
         return 2;
     }
   }
@@ -314,6 +316,7 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
 
     errorCode = getline_forward(ss, tokn, 1);
     if (errorCode || !separator(tokn)){
+      errMsgs(3);
       std::cerr << " => " << line << "\n";
       return;
     }
@@ -328,12 +331,14 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
           std::cerr << " => " << line << "\n";
           return;
         }
+        else if(errorCode != 0){
+          return errMsgs(errorCode);
+        }
       }
       else{
         return errMsgs(errorCode);
       }
     }
-
     std::string is_space;
     errorCode = getline_forward(ss, is_space, 1);
     if(!errorCode){
@@ -344,13 +349,15 @@ void tokenizizer(std::string &line, std::map<std::string, std::string>& mapdb){
 
     if(is_space == ""){
       searchMap(mapdb, date, tokn);
-    } else {
+      }
+    else {
       errMsgs(3);
       std::cerr <<  " => " << line << "\n";
       return;
     }
   }
 }
+
 
 //function to populate the map with the data.csv
 void populateMap(std::ifstream& file, std::map<std::string, std::string>& map, char delim){
